@@ -28,8 +28,10 @@ export default function Menu({ routes = [] }: { routes: RouteItem[] }) {
             key={route.name}
             className={currentPage === route.link ? styles["active-menu"] : ""}
           >
-            <i className={["iconfont", route.icon].join(" ")}></i>
-            <Link href={route.link}>{route.text}</Link>
+            <Link href={route.link}>
+              <i className={["iconfont", route.icon].join(" ")}></i>
+              {route.text}
+            </Link>
           </span>
         );
       })}
