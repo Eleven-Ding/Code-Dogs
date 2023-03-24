@@ -7,13 +7,13 @@ export default function CommonHead() {
   useEffect(() => {
     const pathname = window.location.pathname;
     const text = routes.find((route) => route.link === pathname)?.text ?? "";
-
     setTitle(text);
 
     function listenVisibilitychange() {
-      if (document.visibilityState === "visible") {
+      const isVisible = document.visibilityState === "visible";
+      if (isVisible) {
         setTitle(text);
-      } else if (document.visibilityState === "hidden") {
+      } else {
         setTitle("别走，再看我一眼 -");
       }
     }
