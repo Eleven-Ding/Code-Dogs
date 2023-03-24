@@ -1,0 +1,29 @@
+$ActiveMenuItemColor: yellow;
+$NormalMenuItemColor: rgb(180, 185, 190);
+
+.route-menu {
+  font-size: 13px;
+
+  span {
+    margin-left: 20px;
+    cursor: pointer;
+    color: $NormalMenuItemColor;
+    a {
+      text-decoration: none;
+      color: $NormalMenuItemColor;
+      &:hover {
+        color: $ActiveMenuItemColor;
+      }
+    }
+    i {
+      font-size: 13px;
+      margin-right: 4px;
+    }
+  }
+  .active-menu {
+    color: $ActiveMenuItemColor;
+    a {
+      color: $ActiveMenuItemColor;
+    }
+  }
+}

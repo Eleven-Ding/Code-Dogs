@@ -1,0 +1,22 @@
+.title-container {
+  display: flex;
+  align-items: center;
+  .title {
+    color: yellow;
+    font-size: 22px;
+  }
+  .title-description {
+    font-size: 12px;
+    color: rgb(180, 185, 190);
+    margin-left: 10px;
+    margin-top: 9px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .title-container {
+    .title-description {
+      display: none;
+    }
+  }
+}

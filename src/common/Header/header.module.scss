@@ -1,8 +1,45 @@
+@import "@/styles/globals.scss";
+
 .header-container {
+  user-select: none;
+  overflow: hidden;
   height: 50px;
   background-color: #2b3645;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  .header-content {
+    width: $contentWidth;
+    display: flex;
+    justify-content: space-between;
+    .header-content-left {
+      display: flex;
+      align-items: center;
+    }
+    .header-content-right {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .header-container {
+    .header-content {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header-container {
+    .header-content {
+      justify-content: space-between;
+      padding: 0 2px;
+      width: 100%;
+      .header-content-right {
+        // display: none;
+      }
+    }
+  }
 }

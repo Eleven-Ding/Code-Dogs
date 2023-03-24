@@ -1,23 +1,43 @@
+@import "@/styles/globals.scss";
+
+$Maincontentbordercolor: rgb(237, 230, 230);
+
 .layout-container {
   min-height: 100vh;
-  width: 75%;
+  width: $contentWidth;
   margin: 0 auto;
-
   margin-top: 10px;
   display: flex;
+
   .layout-left-content {
-    border: 1px solid rgb(242, 235, 235);
-    width: calc(100% - 200px);
-    border: 1px solid #ccc;
+    border: 1px solid $Maincontentbordercolor;
+    width: calc(100% - $RightPanelWidth);
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.4);
   }
+
   .layout-right-panel {
-    border: 1px solid rgb(242, 235, 235);
+    border: 1px solid $Maincontentbordercolor;
     border-radius: 5px;
-    width: 20%;
-    width: 250px;
-    border: 1px solid #ccc;
+    width: $RightPanelWidth;
     margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .layout-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .layout-container {
+    width: 100%;
+    .layout-left-content {
+      width: 100%;
+    }
+    .layout-right-panel {
+      display: none;
+    }
   }
 }
