@@ -1,21 +1,23 @@
 import { RouteItem } from "@/config/router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import { changeCurrentTab } from "@/store/head";
 
 import styles from "./menu.module.scss";
 
 export default function Menu({ routes = [] }: { routes: RouteItem[] }) {
-  const [currentPage, setCurrentPage] = useState("/");
+  const dispatch = useDispatch();
+
+  const currentPage = useSelector(
+    (state: RootState) => state.header.currentTab
+  );
 
   useEffect(() => {
     const location = window.location;
-    setCurrentPage(location.pathname ?? "/");
-  }, []);
-
-  const handleMenuItemClick = useCallback((route: RouteItem) => {
-    const { link } = route;
-    setCurrentPage(link);
-  }, []);
+    dispatch(changeCurrentTab(location.pathname ?? "/"));
+  }, [dispatch]);
 
   return (
     <div className={styles["route-menu"]}>
@@ -23,7 +25,7 @@ export default function Menu({ routes = [] }: { routes: RouteItem[] }) {
         return (
           <span
             onClick={() => {
-              handleMenuItemClick(route);
+              dispatch(changeCurrentTab(route.link));
             }}
             key={route.name}
             className={currentPage === route.link ? styles["active-menu"] : ""}

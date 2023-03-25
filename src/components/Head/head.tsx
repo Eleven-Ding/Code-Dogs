@@ -1,17 +1,27 @@
 import Head from "next/head";
 import { routes } from "@/config/router";
 import { useEffect, useState } from "react";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 export default function CommonHead() {
-  const [title, setTitle] = useState("ElevenDing");
-  useEffect(() => {
-    const pathname = window.location.pathname;
-    const text = routes.find((route) => route.link === pathname)?.text ?? "";
-    setTitle(text);
+  const [title, setTitle] = useState("");
+  const currentPage = useSelector(
+    (state: RootState) => state.header.currentTab
+  );
 
+  useEffect(() => {
+    const text = routes.find((route) => route.link === currentPage)?.text ?? "";
+    setTitle(text);
+  }, [currentPage]);
+
+  useEffect(() => {
     function listenVisibilitychange() {
       const isVisible = document.visibilityState === "visible";
       if (isVisible) {
+        const text =
+          routes.find((route) => route.link === location.pathname)?.text ??
+          "404 Not Found";
         setTitle(text);
       } else {
         setTitle("别走，再看我一眼 -");
