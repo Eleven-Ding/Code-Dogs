@@ -1,0 +1,20 @@
+.user-info-container {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  color: #7f7f7f;
+  p {
+    padding: 0;
+    margin: 12px 0;
+  }
+  .self-user-name {
+    color: rgb(57, 215, 184);
+  }
+  img {
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(168, 245, 233) 0px 0px 10px,
+      rgb(54, 199, 110) 0px 0px 15px, rgb(35, 129, 35) 0px 0px 8px,
+      rgb(158, 210, 158) 0px 0px 10px, rgb(129, 232, 108) 0px 0px 12px;
+  }
+}
