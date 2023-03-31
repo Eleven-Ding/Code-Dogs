@@ -7,4 +7,10 @@ export const LoginTypeList: LoginTypeItem[] = [
     icon: "iconfont icon-github",
     link: "https://github.com/login/oauth/authorize?client_id=eb5bed26c16fde7dbbe3",
   },
+  {
+    type: LoginType.QQ,
+    text: "QQ登录",
+    icon: "iconfont icon-shejiaotubiao-03",
+    link: "https://github.com/login/oauth/authorize?client_id=eb5bed26c16fde7dbbe3",
+  },
 ];
