@@ -8,20 +8,7 @@ import { Dropdown, Space, message } from "antd";
 import { openLoginWindow } from "@/utils/openLoginWindow";
 import { login } from "@/request/auth";
 import { closeGlobalLoading, startGlobalLoading } from "@/utils/createLoading";
-
-export const LoginTypeList: LoginTypeItem[] = [
-  {
-    type: LoginType.GitHub,
-    text: "GitHub",
-    icon: (
-      <span
-        className="iconfont icon-github"
-        style={{ fontSize: "20px" }}
-      ></span>
-    ),
-    link: "https://github.com/login/oauth/authorize?client_id=eb5bed26c16fde7dbbe3",
-  },
-];
+import { LoginTypeList } from "@/const";
 
 export const messageLoadingKey = "OAuth_Login";
 
@@ -31,10 +18,14 @@ export default function Login() {
 
   const handleLoginMenuItemClick = useCallback(
     ({ key }: { key: string }) => {
-      if (key === "login_out") {
+      if (key === LoginType.LogOut) {
         setUserInfo(null);
         localStorage.removeItem("userInfo");
         localStorage.removeItem("token");
+        messageApi.success({
+          content: `成功退出登录`,
+          duration: 2,
+        });
         return;
       }
       const { link } = LoginTypeList.find((item) => item.type === key)!;
@@ -65,7 +56,7 @@ export default function Login() {
           setUserInfo(userInfo);
         } catch (error) {
           messageApi.warning({
-            content: "登录失败，请重新登录",
+            content: (error as Error).message,
             duration: 2,
           });
         } finally {
@@ -92,17 +83,17 @@ export default function Login() {
   const items: MenuProps["items"] = useMemo(() => {
     let menuItems = [];
     if (!userInfo) {
-      menuItems = LoginTypeList.map(({ type, text, icon, link }) => {
+      menuItems = LoginTypeList.map(({ type, text, icon }) => {
         return {
           key: type,
           label: <span>{text}</span>,
-          icon,
+          icon: <span className={icon} style={{ fontSize: "20px" }}></span>,
         };
       });
     } else {
       menuItems = [
         {
-          key: "login_out",
+          key: LoginType.LogOut,
           label: <span>{userInfo.username} 退出登录</span>,
         },
       ];
