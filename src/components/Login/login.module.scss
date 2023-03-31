@@ -1,0 +1,24 @@
+.login-container {
+  cursor: pointer;
+  .login-content {
+    display: flex;
+    font-size: 13px;
+    color: rgb(180, 185, 190);
+    margin-left: 15px;
+    &:hover {
+      color: #fff;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 3px;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 800px) {
+}

@@ -1,18 +1,22 @@
 import { useEffect } from "react";
-import { proxyRequest } from "@/request";
-export default function Home() {
-  useEffect(() => {
-    const code = window.location.search.split("=")[1];
-    console.log(code);
+import { useRouter } from "next/router";
 
-    // 拿着这个 Code 去打接口，服务端去拿 access_Token 和 用户信息
+export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search).values();
+    const [type, code] = [...params];
+    if (!window.opener) {
+      router.push("/");
+    }
+    window.opener?.postMessage(
+      {
+        type,
+        data: code,
+      },
+      "*"
+    );
+    window.close();
   }, []);
-  return (
-    <>
-      <main>
-        <h1>Auth</h1>
-        <h1>登陆中....</h1>
-      </main>
-    </>
-  );
+  return <>登录</>;
 }
