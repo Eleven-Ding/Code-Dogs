@@ -1,7 +1,7 @@
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { Request, Response } from "express";
 const env = process.env.NODE_ENV;
-const target = env === "production" ? "http://127.0.0.1:3003" : "http://127.0.0.1:3003";
+const target = env === "production" ? "http://localhost:3003" : "http://localhost:3003";
 
 const proxy = createProxyMiddleware({
   target,
