@@ -1,4 +1,4 @@
-import { proxyRequest } from "@/request";
+import { internalRequest } from "@/request";
 
 export type GetPostsListParams = {
   offset: number;
@@ -6,7 +6,7 @@ export type GetPostsListParams = {
 };
 
 export function getPostsList(params: GetPostsListParams) {
-  return proxyRequest
+  return internalRequest
     .get("/post/all", {
       params,
     })

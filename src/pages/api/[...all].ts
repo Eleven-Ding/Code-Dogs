@@ -1,10 +1,13 @@
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { Request, Response } from "express";
 const env = process.env.NODE_ENV;
-const target = env === "production" ? "http://localhost:3003" : "http://localhost:3003";
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "http://101.200.130.1:3003"
+    : "http://localhost:3003";
 
 const proxy = createProxyMiddleware({
-  target,
+  target: baseURL,
   secure: false,
   pathRewrite: { "^/api": "" },
 });

@@ -21,6 +21,11 @@ const baseURL =
   process.env.NODE_ENV === "production"
     ? "http://101.200.130.1:3003"
     : "http://localhost:3003";
+
 export const proxyRequest = createAxiosInstance({
+  baseURL: "/api",
+});
+
+export const internalRequest = createAxiosInstance({
   baseURL,
 });
