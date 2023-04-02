@@ -3,6 +3,7 @@ export type RouteItem = {
   name: string;
   link: string;
   icon: string;
+  inHeader?: boolean;
 };
 
 export const routes: RouteItem[] = [
