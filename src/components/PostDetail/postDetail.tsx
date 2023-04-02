@@ -28,7 +28,7 @@ export function PostDetail({
       <span>{post_description}</span>
       <div
         dangerouslySetInnerHTML={{
-          __html: marked(post_content),
+          __html: marked(post_content || ""),
         }}
       ></div>
     </div>

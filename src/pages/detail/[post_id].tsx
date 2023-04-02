@@ -22,8 +22,9 @@ export async function getServerSideProps(context: GetServerSideProps) {
         ...result.data,
       },
     };
-  } catch (error) {}
-  return {
-    props: {},
-  };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
 }
