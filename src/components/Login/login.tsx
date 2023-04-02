@@ -46,7 +46,7 @@ export default function Login() {
           duration: 1,
         });
         startGlobalLoading();
-        const { data, code } = await login(payload);
+        const { data, code } = await login(payload, type);
         if (code === -1) {
           throw new Error("登录失败");
         }

@@ -4,10 +4,12 @@ import { useRouter } from "next/router";
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search).values();
-    const [type, code] = [...params];
+    const { type, code } = router.query;
     if (!window.opener) {
       router.push("/");
+    }
+    if (!type || !code) {
+      return;
     }
     window.opener?.postMessage(
       {
@@ -17,6 +19,6 @@ export default function Home() {
       "*"
     );
     window.close();
-  }, []);
+  }, [router]);
   return <>登录</>;
 }

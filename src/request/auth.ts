@@ -1,12 +1,13 @@
 import { proxyRequest } from "@/request";
 import { User, Token } from "@/types/auth";
+import { LoginType } from "@/types/header";
 export type CodeDogResponseType<T> = {
   code: number;
   data: T;
   message: string;
 };
 
-export async function login(code: string) {
+export async function login(code: string, type: LoginType) {
   return proxyRequest
     .get<
       CodeDogResponseType<{
@@ -16,6 +17,7 @@ export async function login(code: string) {
     >("/auth/login", {
       params: {
         code,
+        type,
       },
     })
     .then((res) => {
