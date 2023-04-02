@@ -1,4 +1,4 @@
-import { internalRequest } from "@/request";
+import { request } from "@/request";
 
 export type GetPostsListParams = {
   offset: number;
@@ -6,7 +6,7 @@ export type GetPostsListParams = {
 };
 
 export function getPostsList(params: GetPostsListParams) {
-  return internalRequest
+  return request()
     .get("/post/all", {
       params,
     })

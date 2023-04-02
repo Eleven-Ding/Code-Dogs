@@ -20,3 +20,12 @@ export const proxyRequest = createAxiosInstance({
 export const internalRequest = createAxiosInstance({
   baseURL,
 });
+
+export const request = () => {
+  try {
+    window;
+    return proxyRequest;
+  } catch (e) {
+    return internalRequest;
+  }
+};
