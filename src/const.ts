@@ -11,7 +11,9 @@ export const LoginTypeList: LoginTypeItem[] = [
     type: LoginType.QQ,
     text: "QQ登录",
     icon: "iconfont icon-shejiaotubiao-03",
-    link: "https://github.com/login/oauth/authorize?client_id=eb5bed26c16fde7dbbe3",
+    link: `https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101956106&redirect_uri=https://www.dingshiyi.top/auth&state=${(
+      Math.random() * 100
+    ).toFixed(2)}`,
   },
 ];
 
