@@ -14,3 +14,8 @@ export const LoginTypeList: LoginTypeItem[] = [
     link: "https://github.com/login/oauth/authorize?client_id=eb5bed26c16fde7dbbe3",
   },
 ];
+
+export const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://www.dingshiyi.top:9004"
+    : "http://localhost:3003";
