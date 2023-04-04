@@ -32,20 +32,6 @@
     box-shadow: rgb(204, 204, 204) 0px 4px 10px;
     transform: translateY(-1px);
   }
-  .post-basic-info {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    color: rgb(78 71 71);
-    span {
-      margin-right: 10px;
-      display: flex;
-      align-items: center;
-      i {
-        margin-right: 3px;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 800px) {

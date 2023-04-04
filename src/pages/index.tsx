@@ -11,7 +11,7 @@ export type PostItemType = {
   post_url?: string;
   post_title: string;
   post_description: string;
-  view_count: string;
+  view_count: number;
   post_state: string;
   createdAt: string;
   updatedAt: string;

@@ -1,0 +1,14 @@
+.post-basic-info {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  color: rgb(78 71 71);
+  span {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    i {
+      margin-right: 3px;
+    }
+  }
+}

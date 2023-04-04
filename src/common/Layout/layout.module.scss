@@ -3,6 +3,7 @@
 $Maincontentbordercolor: rgb(237, 230, 230);
 
 .layout-container {
+  transition: width 0.3s linear;
   min-height: 100vh;
   width: $contentWidth;
   margin: 0 auto;
@@ -27,6 +28,18 @@ $Maincontentbordercolor: rgb(237, 230, 230);
 @media screen and (max-width: 1200px) {
   .layout-container {
     width: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .layout-container {
+    width: 95%;
+    .layout-left-content {
+      width: calc(100% - 220px);
+    }
+    .layout-right-panel {
+      width: 220px;
+    }
   }
 }
 

@@ -1,0 +1,46 @@
+.post-detail-container {
+  padding: 10px 0px;
+  .post-detail-go-back {
+    background-color: #e1f0ff;
+    padding: 10px 0;
+    display: flex;
+    font-size: 16px;
+    padding-left: 5px;
+    text-decoration: underline;
+    color: #1890FF;
+    cursor: pointer;
+  }
+  .post-detail-basic-info {
+    margin-bottom: 20px;
+    padding: 0 10px;
+    .post-detail-description {
+      color: rgb(119, 119, 119);
+      font-size: 14px;
+      line-height: 23px;
+    }
+    .post-detail-basic-info-img {
+      position: relative;
+      height: 300px;
+    }
+    h1 {
+      text-align: center;
+      color: #1890ff;
+      margin-top: 10px;
+      font-size: 28px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .post-detail-container {
+    .post-detail-basic-info {
+      .post-detail-basic-info-img {
+        position: relative;
+        height: 200px;
+      }
+    }
+  }
+}

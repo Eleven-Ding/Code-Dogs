@@ -1,9 +1,9 @@
 import { PostItemType } from "@/pages";
 import styles from "./postList.module.scss";
-import { formatPostItemTime } from "@/utils/format";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { PostItemBasicInfo } from "./children/basicInfo/basicInfo";
 
 export function PostItem(props: PostItemType) {
   const {
@@ -17,15 +17,6 @@ export function PostItem(props: PostItemType) {
 
   const router = useRouter();
 
-  const [createTime, setCreateTime] = useState("10/10/10 00:00:00");
-
-  useEffect(() => {
-    if (!createdAt) {
-      return;
-    }
-    setCreateTime(formatPostItemTime(createdAt));
-  }, [createdAt]);
-
   const goToPostDetail = useCallback(() => {
     router.push(`/detail/${post_id}`);
   }, []);
@@ -35,17 +26,10 @@ export function PostItem(props: PostItemType) {
       {/* 标题 */}
       <h2>{post_title}</h2>
       {/* 基本信息 */}
-      <div className={styles["post-basic-info"]}>
-        <span>
-          <i className="iconfont icon-rili"></i> {createTime}
-        </span>
-        <span>
-          <i className="iconfont icon-liulan"></i> {view_count}
-        </span>
-        <span>
-          <i className="iconfont icon-pinglun"></i> 1
-        </span>
-      </div>
+      <PostItemBasicInfo
+        createdAt={createdAt}
+        view_count={view_count}
+      ></PostItemBasicInfo>
       {/* 图片描述 */}
       {post_url && (
         <div className={styles["image-container"]}>
