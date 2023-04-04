@@ -1,8 +1,9 @@
 
+import { BloggerBaseInfo } from "@/components/About/bloggerBaseInfo/bloggerBaseInfo";
 export default function About() {
   return (
     <>
-      <h1>About</h1>
+      <BloggerBaseInfo></BloggerBaseInfo>
     </>
   );
 }
