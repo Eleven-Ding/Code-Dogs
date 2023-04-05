@@ -1,25 +1,15 @@
 import { PostsList } from "@/components/PostsList/postList";
 import { AppProps } from "antd";
 import { GetServerSideProps } from "next";
-import { getPostsList } from "@/request/home";
+import { PostDetailType, getPostsList } from "@/request/home";
 import { Pagination } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { backToTop } from "@/utils/backToTop";
 
-export type PostItemType = {
-  post_id: number;
-  post_url?: string;
-  post_title: string;
-  post_description: string;
-  view_count: number;
-  post_state: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export type PostListResponse = {
   count: number;
-  rows: PostItemType[];
+  rows: PostDetailType[];
 };
 const limit = 8;
 let serverFetch = true;
@@ -51,7 +41,7 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
       offset: (page - 1) * pageSize,
       limit: pageSize,
     })
-      .then(({ data: { count, rows } }) => {
+      .then(({ data: [rows, count] }) => {
         setTotal(count);
         setPageList(rows);
         backToTop();
@@ -81,18 +71,20 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
 }
 
 export async function getServerSideProps(context: GetServerSideProps) {
-  let propsData = { count: 0, row: [] };
+  let rows: PostDetailType[] = [];
+  let count: number = 0;
   try {
     const result = await getPostsList({
       offset: 0,
       limit,
     });
-    propsData = result.data;
+    [rows, count] = result.data;
   } catch (error) {}
   return {
     props: {
       data: {
-        ...propsData,
+        rows,
+        count,
       },
     },
   };

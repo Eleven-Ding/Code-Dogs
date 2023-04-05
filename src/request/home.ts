@@ -21,7 +21,7 @@ export type PostDetailType = {
 
 export function getPostsList(params: GetPostsListParams) {
   return request()
-    .get("/post/all", {
+    .get<CodeDogResponseType<[PostDetailType[], number]>>("/post/all", {
       params,
     })
     .then((res) => res.data);

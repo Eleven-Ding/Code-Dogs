@@ -1,11 +1,11 @@
-import { PostItemType } from "@/pages";
+import { PostDetailType } from "@/request/home";
 import styles from "./postList.module.scss";
 import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { PostItemBasicInfo } from "./children/basicInfo/basicInfo";
 
-export function PostItem(props: PostItemType) {
+export function PostItem(props: PostDetailType) {
   const {
     post_title,
     post_description,
