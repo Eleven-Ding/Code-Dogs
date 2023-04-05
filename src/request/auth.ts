@@ -1,11 +1,7 @@
 import { proxyRequest } from "@/request";
 import { User, Token } from "@/types/auth";
 import { LoginType } from "@/types/header";
-export type CodeDogResponseType<T> = {
-  code: number;
-  data: T;
-  message: string;
-};
+import { CodeDogResponseType } from '@/request';
 
 export async function login(code: string, type: LoginType) {
   return proxyRequest

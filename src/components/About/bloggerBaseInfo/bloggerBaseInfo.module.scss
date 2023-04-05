@@ -1,8 +1,40 @@
 .blogger-base-info-container {
+  border-bottom: 1px solid rgb(24, 144, 255);
+  border-radius: 5px;
   .blogger-back-image {
     position: relative;
     height: 200px;
     background: url("https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/person.png")
       no-repeat top;
+  }
+  .blogger-basic-info {
+    display: flex;
+    z-index: 9;
+    position: relative;
+    margin-top: -30px;
+    margin-left: 40px;
+
+    img {
+      border-radius: 10px;
+    }
+    .blogger-name-container {
+      margin-top: 35px;
+      margin-left: 10px;
+      p {
+        margin-bottom: 7px;
+        line-height: 20px;
+      }
+      p:nth-child(1) {
+        font-size: 18px;
+        color: rgb(24, 144, 255);
+        font-weight: 600;
+      }
+      p:nth-child(2) {
+        font-size: 13px;
+      }
+      p:nth-child(3) {
+        font-size: 13px;
+      }
+    }
   }
 }

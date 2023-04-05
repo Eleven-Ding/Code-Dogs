@@ -29,3 +29,9 @@ export const request = () => {
     return internalRequest;
   }
 };
+
+export type CodeDogResponseType<T> = {
+  code: number;
+  data: T;
+  message: string;
+};
