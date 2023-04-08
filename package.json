@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy":"next build && node './deploy.js'",
-    "export":"next export"
+    "deploy": "next build && node './deploy.js'",
+    "deploy:skip": "node './deploy.js'",
+    "export": "next export"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/marked": "^4.0.8",
     "@types/node": "^18.15.11",
+    "archiver": "^5.3.1",
     "chalk": "^4.1.0",
     "node-ssh": "^13.1.0",
     "ora": "^5.4.1"
