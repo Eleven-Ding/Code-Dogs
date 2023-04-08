@@ -1,5 +1,5 @@
 import { request } from "@/request";
-import { CodeDogResponseType } from "./auth";
+import { CodeDogResponseType } from "@/request";
 
 export type GetPostsListParams = {
   offset: number;
