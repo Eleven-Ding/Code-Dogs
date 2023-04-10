@@ -1,0 +1,46 @@
+.tool-list {
+  display: flex;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  .tool-item {
+    border: 1px solid #eeeeee;
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    color: #393939;
+    cursor: pointer;
+    width: 30%;
+    transition: all 0.2s linear;
+    &:hover {
+      box-shadow: 0 2px 2px #ececec;
+      background-color: #f9f9f9e1;
+    }
+    display: flex;
+    align-items: center;
+    span {
+      &:nth-child(1) {
+        font-size: 30px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .tool-list {
+    .tool-item {
+      width: 45%;
+    }
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  .tool-list {
+    .tool-item {
+      width: 95%;
+    }
+  }
+}
