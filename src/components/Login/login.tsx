@@ -114,7 +114,7 @@ export default function Login() {
       >
         {userInfo ? (
           <Space className={styles["login-content"]}>
-            <img src={userInfo.avatar_url} alt="ElevenDing Login" />
+            <img src={userInfo.avatar_url} alt="ElevenDing 前端技术博客" />
           </Space>
         ) : (
           <Space className={styles["login-content"]}>

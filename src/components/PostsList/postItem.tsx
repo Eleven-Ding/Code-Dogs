@@ -35,7 +35,7 @@ export function PostItem(props: PostDetailType) {
         <div className={styles["image-container"]}>
           <Image
             src={post_url}
-            alt="ElevenDingImage"
+            alt="ElevenDing 前端技术博客"
             fill={true}
             loading={"lazy"}
             style={{ objectFit: "cover" }}

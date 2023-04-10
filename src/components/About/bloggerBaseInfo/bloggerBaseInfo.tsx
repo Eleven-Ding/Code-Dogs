@@ -9,8 +9,7 @@ export function BloggerBaseInfo() {
           src="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/avat.jpg"
           width={100}
           height={100}
-          
-          alt="ElevenDing"
+          alt="ElevenDing 前端技术博客"
         ></Image>
         <div className={styles["blogger-name-container"]}>
           <p>ElevenDing</p>
