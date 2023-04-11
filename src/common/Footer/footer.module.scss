@@ -11,7 +11,7 @@
     margin: 0;
     padding: 3px 0;
   }
-  span{
+  span {
     border-radius: 3px;
     font-size: 12px;
     padding: 1px 2px;
@@ -23,5 +23,24 @@
   .hosting {
     background-color: rgb(45, 183, 245);
     color: white;
+  }
+  .foot-dancing {
+    display: inline-block;
+    color: rgb(255, 87, 119);
+    animation: dancing 1s infinite linear;
+  }
+}
+@keyframes dancing {
+  0% {
+    transform: translateY(0) rotate(0) scale(1);
+  }
+  50% {
+    transform: translateY(5px) rotate(-5deg) scale(0.95);
+  }
+  70% {
+    transform: translateY(0) rotate(-5deg) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) rotate(0) scale(1);
   }
 }
