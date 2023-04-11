@@ -1,0 +1,14 @@
+.comment-container {
+  padding: 0 10px;
+  background-color: white;
+  position: relative;
+  .comment-input-field {
+    min-height: 120px;
+    background: url("https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/comment.png")
+      right bottom no-repeat;
+  }
+  .submit-btn {
+    margin: 10px auto;
+    text-align: right;
+  }
+}

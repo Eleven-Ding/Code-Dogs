@@ -2,11 +2,14 @@ import { GetServerSideProps } from "next";
 import { getPostsDetail } from "@/request/home";
 import { PostDetailType } from "@/request/home";
 import { PostDetail } from "@/components/PostDetail/postDetail";
+import { Comment } from "@/components/PostDetail/children/comment/comment";
 
 export default function Detail(props: PostDetailType) {
   return (
     <>
       <PostDetail {...props}></PostDetail>
+      {/* 评论数据由前端获取，因为一开始并不需要评论 */}
+      <Comment></Comment>
     </>
   );
 }
