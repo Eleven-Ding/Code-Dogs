@@ -42,6 +42,12 @@ const tools: ToolItem[] = [
     icon: "icon-liuchengbushu",
     link: "",
   },
+  {
+    toolName: "图片爬虫",
+    icon: "icon-pachong",
+    link: "",
+  },
+
 ];
 
 export function ToolList() {
