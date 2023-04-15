@@ -4,12 +4,14 @@ import styles from "./basicInfo.module.scss";
 export type PostItemBasicInfo = {
   createdAt: string;
   view_count: number;
+  comment_count: number;
   style?: Record<string, string>;
 };
 export function PostItemBasicInfo({
   createdAt,
   view_count,
   style,
+  comment_count
 }: PostItemBasicInfo) {
   const [createTime, updateCreateTime] = useState<string>(
     "1999/10/30 12:00:00"
@@ -29,7 +31,7 @@ export function PostItemBasicInfo({
         <i className="iconfont icon-liulan"></i> {view_count}
       </span>
       <span>
-        <i className="iconfont icon-pinglun"></i> 1
+        <i className="iconfont icon-pinglun"></i> {comment_count}
       </span>
     </div>
   );

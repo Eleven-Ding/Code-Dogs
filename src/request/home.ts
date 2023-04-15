@@ -17,6 +17,7 @@ export type PostDetailType = {
   post_state: number;
   createdAt: string;
   updatedAt: string;
+  comment_count: number;
 };
 
 export function getPostsList(params: GetPostsListParams) {

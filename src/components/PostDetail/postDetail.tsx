@@ -14,7 +14,8 @@ export function PostDetail({
   post_content,
   createdAt,
   view_count,
-  updatedAt
+  updatedAt,
+  comment_count,
 }: PostDetailType) {
   const router = useRouter();
   const goBack = useCallback(() => {
@@ -31,6 +32,7 @@ export function PostDetail({
           createdAt={createdAt}
           view_count={view_count}
           style={{ justifyContent: "center" }}
+          comment_count={comment_count}
         ></PostItemBasicInfo>
         {post_url && (
           <div className={styles["post-detail-basic-info-img"]}>

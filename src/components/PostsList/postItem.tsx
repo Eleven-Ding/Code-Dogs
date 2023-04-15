@@ -13,6 +13,7 @@ export function PostItem(props: PostDetailType) {
     view_count,
     createdAt,
     post_id,
+    comment_count
   } = props;
 
   const router = useRouter();
@@ -29,6 +30,7 @@ export function PostItem(props: PostDetailType) {
       <PostItemBasicInfo
         createdAt={createdAt}
         view_count={view_count}
+        comment_count={comment_count}
       ></PostItemBasicInfo>
       {/* 图片描述 */}
       {post_url && (
