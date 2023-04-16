@@ -20,7 +20,7 @@ export const LoginTypeList: LoginTypeItem[] = [
 export const baseURL = process.env.NODE_ENV ===
 "production"
   ? "https://www.dingshiyi.top:9004"
-  : "http://localhost:3003";
+  : "https://www.dingshiyi.top:9004";
 // process.env.NODE_ENV ===
 // "production"
 //   ? "https://www.dingshiyi.top:9004"

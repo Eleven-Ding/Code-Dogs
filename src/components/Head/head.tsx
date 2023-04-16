@@ -21,7 +21,7 @@ export default function CommonHead() {
       if (isVisible) {
         const text =
           routes.find((route) => route.link === location.pathname)?.text ??
-          "404 Not Found";
+          "前端技术博客";
         setTitle(text);
       } else {
         setTitle("别走，再看我一眼 -");

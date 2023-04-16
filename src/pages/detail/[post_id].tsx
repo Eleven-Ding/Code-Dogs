@@ -10,7 +10,10 @@ export default function Detail(props: PostDetailType) {
     <>
       <PostDetail {...props}></PostDetail>
       {/* 评论数据由前端获取，因为一开始并不需要评论 */}
-      <Comment post_id={post_id} user_id={user_id}></Comment>
+      <Comment
+        post_id={post_id}
+        user_id={user_id}
+      ></Comment>
     </>
   );
 }

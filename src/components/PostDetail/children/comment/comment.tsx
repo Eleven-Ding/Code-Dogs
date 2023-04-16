@@ -1,11 +1,10 @@
 import { Input, Divider, Button, message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CommentList } from "./commentList/commentList";
 import { CommontItemType, createComment } from "@/request/home";
 import { getCommentsByPostId } from "@/request/home";
 import { useCallback } from "react";
 import styles from "./comment.module.scss";
-import { AxiosError } from "axios";
 
 const { TextArea } = Input;
 
@@ -52,14 +51,15 @@ export function Comment({ post_id, user_id }: CommentProps) {
   }, [content, post_id, updateCommentList]);
 
   useEffect(() => {
-    // 获取所有的评论数据
     updateCommentList(post_id);
   }, [post_id, updateCommentList]);
+
   return (
     <div className={styles["comment-container"]}>
       <Divider style={{ color: "rgb(124 118 118)", fontWeight: 500 }}>
         欢迎留言评论
       </Divider>
+      {/* <Image src={}></Image> */}
       <TextArea
         placeholder="支持markdown语法"
         className={styles["comment-input-field"]}
@@ -67,7 +67,12 @@ export function Comment({ post_id, user_id }: CommentProps) {
         onChange={handleTextAreaChange}
       />
       <p className={styles["submit-btn"]}>
-        <Button onClick={submitComment} type="primary" loading={loading}>
+        <Button
+          onClick={submitComment}
+          type="primary"
+          disabled={!content}
+          loading={loading}
+        >
           提交评论
         </Button>
       </p>

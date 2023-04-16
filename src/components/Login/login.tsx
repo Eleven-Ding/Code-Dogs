@@ -9,12 +9,15 @@ import { openLoginWindow } from "@/utils/openLoginWindow";
 import { login } from "@/request/auth";
 import { closeGlobalLoading, startGlobalLoading } from "@/utils/createLoading";
 import { LoginTypeList } from "@/const";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserInfo } from "@/store/head";
 
 export const messageLoadingKey = "OAuth_Login";
 
 export default function Login() {
   const [messageApi, ContextHolder] = message.useMessage();
   const [userInfo, setUserInfo] = useState<User | null>(null);
+  const dispatch = useDispatch();
 
   const handleLoginMenuItemClick = useCallback(
     ({ key }: { key: string }) => {
@@ -56,6 +59,7 @@ export default function Login() {
           content: `你好，${userInfo.username}，欢迎您的到来`,
           duration: 2,
         });
+        dispatch(changeUserInfo(userInfo));
         localStorage.setItem("token", token);
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         setUserInfo(userInfo);
@@ -72,7 +76,7 @@ export default function Login() {
     return () => {
       window.removeEventListener("message", handlePostMessage, false);
     };
-  }, [messageApi]);
+  }, [dispatch, messageApi]);
 
   // 重新进入浏览器保持登录
   useEffect(() => {
@@ -82,6 +86,12 @@ export default function Login() {
       setUserInfo(JSON.parse(userInfo));
     }
   }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(changeUserInfo(userInfo));
+    }
+  }, [userInfo, dispatch]);
 
   const items: MenuProps["items"] = useMemo(() => {
     let menuItems = [];
