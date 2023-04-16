@@ -5,11 +5,12 @@ import { PostDetail } from "@/components/PostDetail/postDetail";
 import { Comment } from "@/components/PostDetail/children/comment/comment";
 
 export default function Detail(props: PostDetailType) {
+  const { post_id, user_id } = props;
   return (
     <>
       <PostDetail {...props}></PostDetail>
       {/* 评论数据由前端获取，因为一开始并不需要评论 */}
-      <Comment></Comment>
+      <Comment post_id={post_id} user_id={user_id}></Comment>
     </>
   );
 }

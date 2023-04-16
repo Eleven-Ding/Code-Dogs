@@ -1,4 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { baseURL } from "@/const";
 
 export const REQUEST_TIME_OUT = 10 * 1000;
@@ -16,6 +20,15 @@ const createAxiosInstance = (config?: AxiosRequestConfig): AxiosInstance => {
 export const proxyRequest = createAxiosInstance({
   baseURL: "/api",
 });
+
+proxyRequest.interceptors.request.use(
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (localStorage.getItem("token")) {
+      config.headers!.Authorization = `Bearer ${localStorage.getItem("token")}`;
+    }
+    return config;
+  }
+);
 
 export const internalRequest = createAxiosInstance({
   baseURL,
