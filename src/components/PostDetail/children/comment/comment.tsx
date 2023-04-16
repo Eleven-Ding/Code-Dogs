@@ -8,8 +8,6 @@ import styles from "./comment.module.scss";
 
 const { TextArea } = Input;
 
-const parent_id: number = -1;
-
 type CommentProps = {
   post_id: number;
   user_id: string;
@@ -32,23 +30,30 @@ export function Comment({ post_id, user_id }: CommentProps) {
     });
   }, []);
 
-  const submitComment = useCallback(async () => {
-    if (content.length === 0) {
-      message.warning("评论不能为空");
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await createComment(post_id, parent_id, content);
-      const { message: resMessage } = res;
-      message.success(resMessage);
-      setContent("");
-      updateCommentList(post_id);
-    } catch (error) {
-      message.error((error as any).response?.data.message);
-    }
-    setLoading(false);
-  }, [content, post_id, updateCommentList]);
+  const submitComment = useCallback(
+    async (content: string, replyId: string, parentId: number) => {
+      if (content.length === 0) {
+        message.warning("评论不能为空");
+        return;
+      }
+      if (parentId === -1) {
+        setLoading(true);
+      }
+      try {
+        const res = await createComment(post_id, parentId, content, replyId);
+        const { message: resMessage } = res;
+        message.success(resMessage);
+        setContent("");
+        updateCommentList(post_id);
+      } catch (error) {
+        message.error((error as any).response?.data.message);
+      }
+      if (parentId === -1) {
+        setLoading(false);
+      }
+    },
+    [post_id, updateCommentList]
+  );
 
   useEffect(() => {
     updateCommentList(post_id);
@@ -59,7 +64,6 @@ export function Comment({ post_id, user_id }: CommentProps) {
       <Divider style={{ color: "rgb(124 118 118)", fontWeight: 500 }}>
         欢迎留言评论
       </Divider>
-      {/* <Image src={}></Image> */}
       <TextArea
         placeholder="支持markdown语法"
         className={styles["comment-input-field"]}
@@ -68,7 +72,9 @@ export function Comment({ post_id, user_id }: CommentProps) {
       />
       <p className={styles["submit-btn"]}>
         <Button
-          onClick={submitComment}
+          onClick={() => {
+            submitComment(content, "-1", -1);
+          }}
           type="primary"
           disabled={!content}
           loading={loading}
@@ -76,7 +82,11 @@ export function Comment({ post_id, user_id }: CommentProps) {
           提交评论
         </Button>
       </p>
-      <CommentList commentList={commentList} user_id={user_id} />
+      <CommentList
+        submitComment={submitComment}
+        commentList={commentList}
+        user_id={user_id}
+      />
     </div>
   );
 }

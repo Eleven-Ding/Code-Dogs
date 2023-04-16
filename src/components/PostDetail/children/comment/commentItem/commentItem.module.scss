@@ -1,5 +1,6 @@
 .comment-item-container {
   position: relative;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   margin: 10px 0;
@@ -8,15 +9,16 @@
   }
   .comment-right-info {
     display: flex;
+    flex: 1;
     flex-direction: column;
     margin-left: 8px;
     .comment-top-info {
       display: flex;
       align-items: center;
       span {
-        color: #a5a5a5;
+        color: #888888;
         margin-right: 10px;
-        font-size: 12px;
+        font-size: 13px;
       }
       .username {
         color: rgb(255, 87, 119);
@@ -31,7 +33,10 @@
         }
       }
     }
-
+    .reply-for {
+      color: #0f93df;
+      margin-right: 5px;
+    }
     p {
       color: #505050;
       font-size: 15px;
@@ -58,6 +63,12 @@
         &:nth-child(3):hover {
           color: #ff5777;
         }
+      }
+    }
+    .comment-item-input {
+      margin-top: 10px;
+      .comment-item-submit-btn {
+        text-align: right;
       }
     }
   }

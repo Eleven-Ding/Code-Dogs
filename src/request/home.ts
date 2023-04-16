@@ -27,7 +27,12 @@ export type CommontItemType = {
   createdAt: string;
   status: number;
   position: string;
+  parentId: number;
   user: User;
+  comment_on_user_id: string;
+  comment_on_user: User;
+  children?: CommontItemType[];
+  childrenCommentCount?: number;
 };
 
 // 分页获取文章列表
@@ -54,13 +59,15 @@ export function getPostsDetail(post_id: number) {
 export function createComment(
   postId: number,
   parentId: number,
-  content: string
+  content: string,
+  replyId: string
 ) {
   return request()
     .post<CodeDogResponseType<null>>("/comment/create", {
       postId,
       parentId,
       content,
+      comment_on_user_id: replyId,
     })
     .then((res) => res.data);
 }
