@@ -13,6 +13,7 @@ export type CommontItemProps = {
   currentReplyComment: CommontItemType | null;
   updateCurrentReplyComment: (comment: CommontItemType | null) => void;
   submitComment: (content: string, replyId: string, parentId: number) => void;
+  replyOnWhichCommentText?: string;
 };
 
 const { TextArea } = Input;
@@ -24,6 +25,7 @@ export function CommentItem({
   currentReplyComment,
   updateCurrentReplyComment,
   submitComment,
+  replyOnWhichCommentText,
 }: CommontItemProps) {
   const [loading, updateLoading] = useState(false);
   const { user, content, createdAt, position } = comment;
@@ -80,14 +82,13 @@ export function CommentItem({
           <span className={styles["position"]}>{position}</span>
         </div>
 
-        <p>
-          {comment.comment_on_user && (
-            <span className={styles["reply-for"]}>
-              回复 {comment.comment_on_user.username}:
-            </span>
-          )}
-          {content}
-        </p>
+        <div className={styles["content"]}>{content}</div>
+        {replyOnWhichCommentText && (
+          <div className={styles["reply-which-comment-text"]}>
+            {`"${replyOnWhichCommentText}"`}
+          </div>
+        )}
+
         <div className={styles["comment-operations"]}>
           <span
             onClick={() => {
@@ -109,7 +110,7 @@ export function CommentItem({
           <div className={styles["comment-item-input"]}>
             <TextArea
               placeholder={`回复: ${user.username}...`}
-              style={{ height: "80px" }}
+              style={{ height: "80px",marginBottom:"10px" }}
               onChange={handleCommentTextAreaChange}
             />
             <p className={styles["comment-item-submit-btn"]}>

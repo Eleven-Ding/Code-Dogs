@@ -31,6 +31,10 @@ export function CommentChildren({
   return (
     <div className={styles["children-comment-list"]}>
       {childrenComments!.map((child) => {
+        // 计算需要展示的文字，传递给子组件
+        const replyOnWhichCommentText = childrenComments.find(
+          (comment) => child.comment_on_user_id === comment.user.user_id
+        )?.content;
         return (
           <CommentItem
             key={child.commentId}
@@ -40,6 +44,7 @@ export function CommentChildren({
             currentReplyComment={currentReplyComment}
             updateCurrentReplyComment={updateCurrentReplyComment}
             submitComment={submitComment}
+            replyOnWhichCommentText={replyOnWhichCommentText}
           />
         );
       })}

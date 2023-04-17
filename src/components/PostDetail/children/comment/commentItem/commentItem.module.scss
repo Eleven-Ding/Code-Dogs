@@ -12,6 +12,15 @@
     flex: 1;
     flex-direction: column;
     margin-left: 8px;
+    .reply-which-comment-text {
+      border: 1px solid #e4e6eb;
+      background-color: #f2f3f5;
+      padding: 0 12px;
+      color: #8a919f;
+      font-size: 15px;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
     .comment-top-info {
       display: flex;
       align-items: center;
@@ -39,10 +48,11 @@
       color: #0f93df;
       margin-right: 5px;
     }
-    p {
-      color: #505050;
+    .content {
+      color: #515767;
       font-size: 15px;
       margin-top: 10px;
+      margin-bottom: 10px;
     }
     .comment-operations {
       span {
@@ -69,6 +79,9 @@
     }
     .comment-item-input {
       margin-top: 10px;
+      p {
+        margin-bottom: 0;
+      }
       .comment-item-submit-btn {
         text-align: right;
       }
