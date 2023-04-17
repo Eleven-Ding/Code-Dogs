@@ -1,0 +1,14 @@
+.children-comment-list {
+  background-color: #f5f5f5a7;
+  margin-left: 40px;
+  padding: 4px;
+  .load-more-children-comments {
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    color: #4f4f4f;
+  }
+  img{
+    transform: scale(0.8);
+  }
+}

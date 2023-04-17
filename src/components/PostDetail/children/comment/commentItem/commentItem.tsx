@@ -72,13 +72,12 @@ export function CommentItem({
               <span className={styles["post-author"]}>作者</span>
             )}
           </span>
-
-          <span className={styles["position"]}>
-            {position || "四川 - 成都"}
+          <span>
+            <span className={styles["createTime"]}>
+              {formatPostItemTime(createdAt)}
+            </span>
           </span>
-          <span className={styles["createTime"]}>
-            {formatPostItemTime(createdAt)}
-          </span>
+          <span className={styles["position"]}>{position}</span>
         </div>
 
         <p>

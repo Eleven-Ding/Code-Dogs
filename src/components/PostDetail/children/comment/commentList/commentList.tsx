@@ -1,9 +1,10 @@
 import { CommentItem } from "../commentItem/commentItem";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CommontItemType } from "@/request/home";
 import styles from "./commentList.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { CommentChildren } from "../commentChildren/commentChildren";
 export type CommentListProps = {
   commentList: CommontItemType[];
   user_id: string;
@@ -35,22 +36,16 @@ export function CommentList({
               updateCurrentReplyComment={updateCurrentReplyComment}
               submitComment={submitComment}
             />
-            <div className={styles["children-comment-list"]}>
-              {item.children &&
-                item.children.map((child) => {
-                  return (
-                    <CommentItem
-                      key={child.commentId}
-                      comment={child}
-                      author={user_id}
-                      userInfo={userInfo}
-                      currentReplyComment={currentReplyComment}
-                      updateCurrentReplyComment={updateCurrentReplyComment}
-                      submitComment={submitComment}
-                    />
-                  );
-                })}
-            </div>
+            {item.children?.length !== 0 && (
+              <>
+                <CommentChildren
+                  submitComment={submitComment}
+                  parentComment={item}
+                  author={user_id}
+                  childrenComments={item.children!}
+                />
+              </>
+            )}
           </>
         ))
       )}

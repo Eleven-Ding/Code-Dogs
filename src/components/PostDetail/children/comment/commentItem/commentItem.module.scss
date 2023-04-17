@@ -15,10 +15,12 @@
     .comment-top-info {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       span {
         color: #888888;
         margin-right: 10px;
         font-size: 13px;
+        margin-top: 5px;
       }
       .username {
         color: rgb(255, 87, 119);
