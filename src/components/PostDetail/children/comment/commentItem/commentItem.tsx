@@ -12,7 +12,7 @@ export type CommontItemProps = {
   author: string | null;
   currentReplyComment: CommontItemType | null;
   updateCurrentReplyComment: (comment: CommontItemType | null) => void;
-  submitComment: (content: string, replyId: string, parentId: number) => void;
+  submitComment: (content: string, replyId: number, parentId: number) => void;
   replyOnWhichCommentText?: string;
 };
 
@@ -44,7 +44,7 @@ export function CommentItem({
       currentReplyComment.parentId !== -1
         ? comment.parentId
         : comment.commentId;
-    submitComment(replyContent, currentReplyComment?.user.user_id, parentId);
+    submitComment(replyContent, currentReplyComment.commentId, parentId);
 
     updateLoading(false);
     setReplyContent("");

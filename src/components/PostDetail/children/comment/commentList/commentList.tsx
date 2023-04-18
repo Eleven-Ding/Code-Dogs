@@ -8,7 +8,7 @@ import { CommentChildren } from "../commentChildren/commentChildren";
 export type CommentListProps = {
   commentList: CommontItemType[];
   user_id: string;
-  submitComment: (content: string, replyId: string, parentId: number) => void;
+  submitComment: (content: string, replyId: number, parentId: number) => void;
 };
 export function CommentList({
   commentList,

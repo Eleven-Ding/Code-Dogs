@@ -31,7 +31,7 @@ export function Comment({ post_id, user_id }: CommentProps) {
   }, []);
 
   const submitComment = useCallback(
-    async (content: string, replyId: string, parentId: number) => {
+    async (content: string, replyId: number, parentId: number) => {
       if (content.length === 0) {
         message.warning("评论不能为空");
         return;
@@ -73,7 +73,7 @@ export function Comment({ post_id, user_id }: CommentProps) {
       <p className={styles["submit-btn"]}>
         <Button
           onClick={() => {
-            submitComment(content, "-1", -1);
+            submitComment(content, -1, -1);
           }}
           type="primary"
           disabled={!content}

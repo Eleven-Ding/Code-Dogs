@@ -29,8 +29,7 @@ export type CommontItemType = {
   position: string;
   parentId: number;
   user: User;
-  comment_on_user_id: string;
-  comment_on_user: User;
+  comment_on_id: number;
   children?: CommontItemType[];
   childrenCommentCount?: number;
 };
@@ -60,14 +59,14 @@ export function createComment(
   postId: number,
   parentId: number,
   content: string,
-  replyId: string
+  replyId: number
 ) {
   return request()
     .post<CodeDogResponseType<null>>("/comment/create", {
       postId,
       parentId,
       content,
-      comment_on_user_id: replyId,
+      comment_on_id: replyId,
     })
     .then((res) => res.data);
 }

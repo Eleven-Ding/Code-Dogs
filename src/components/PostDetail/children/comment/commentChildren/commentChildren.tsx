@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export type CommentChildrenProps = {
   childrenComments: CommontItemType[];
   parentComment: CommontItemType;
-  submitComment: (content: string, replyId: string, parentId: number) => void;
+  submitComment: (content: string, replyId: number, parentId: number) => void;
   author: string;
 };
 
@@ -33,7 +33,7 @@ export function CommentChildren({
       {childrenComments!.map((child) => {
         // 计算需要展示的文字，传递给子组件
         const replyOnWhichCommentText = childrenComments.find(
-          (comment) => child.comment_on_user_id === comment.user.user_id
+          (comment) => child.comment_on_id === comment.commentId
         )?.content;
         return (
           <CommentItem
