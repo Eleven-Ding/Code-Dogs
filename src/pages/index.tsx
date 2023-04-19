@@ -5,7 +5,7 @@ import { PostDetailType, getPostsList } from "@/request/home";
 import { Pagination } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { backToTop } from "@/utils/backToTop";
-
+import CommonHead from "@/components/Head/head";
 
 export type PostListResponse = {
   count: number;
@@ -46,14 +46,19 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
         setPageList(rows);
         backToTop();
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
       .finally(() => {
         // TODO: 关闭 loading
       });
   }, [page, pageSize]);
   return (
     <>
+      <CommonHead
+        title="前端技术博客"
+        content={pageList.reduce((pre, cur) => {
+          return pre + cur.post_title + cur.post_description;
+        }, "")}
+      />
       <PostsList count={total} rows={pageList}></PostsList>
       <Pagination
         style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}

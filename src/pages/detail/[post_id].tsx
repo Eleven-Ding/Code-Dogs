@@ -3,17 +3,16 @@ import { getPostsDetail } from "@/request/home";
 import { PostDetailType } from "@/request/home";
 import { PostDetail } from "@/components/PostDetail/postDetail";
 import { Comment } from "@/components/PostDetail/children/comment/comment";
+import CommonHead from "@/components/Head/head";
 
 export default function Detail(props: PostDetailType) {
-  const { post_id, user_id } = props;
+  const { post_id, user_id, post_description, post_title } = props;
   return (
     <>
+      <CommonHead title={post_title} content={post_description} />
       <PostDetail {...props}></PostDetail>
       {/* 评论数据由前端获取，因为一开始并不需要评论 */}
-      <Comment
-        post_id={post_id}
-        user_id={user_id}
-      ></Comment>
+      <Comment post_id={post_id} user_id={user_id}></Comment>
     </>
   );
 }

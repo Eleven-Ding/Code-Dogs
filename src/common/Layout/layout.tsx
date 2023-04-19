@@ -12,7 +12,7 @@ export default function Layout({ children }: PropsWithChildren) {
   }, []);
   return (
     <>
-      <CommonHead></CommonHead>
+      {/* <CommonHead></CommonHead> */}
       <Header />
       <div className={styles["layout-container"]}>
         <div className={styles["layout-left-content"]}>{children}</div>

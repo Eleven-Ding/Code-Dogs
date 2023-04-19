@@ -4,13 +4,18 @@ import { GetServerSideProps } from "next";
 import { AboutMeMd } from "@/request/about";
 import { getAboutMe } from "@/request/about";
 import { marked } from "marked";
+import CommonHead from "@/components/Head/head";
 
 export default function About(props: { data: AboutMeMd }) {
   return (
     <>
+      <CommonHead title="Next" content={props.data.slice(0, 100)} />
       <BloggerBaseInfo></BloggerBaseInfo>
       <Clock></Clock>
-      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: marked(props.data) }}></div>
+      <div
+        className="markdown-body"
+        dangerouslySetInnerHTML={{ __html: marked(props.data) }}
+      ></div>
     </>
   );
 }
