@@ -47,7 +47,6 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
         backToTop();
       })
       .catch((error) => {
-        console.log(error);
       })
       .finally(() => {
         // TODO: 关闭 loading

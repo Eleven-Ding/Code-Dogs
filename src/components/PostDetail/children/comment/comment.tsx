@@ -38,7 +38,6 @@ export function Comment({ post_id, user_id }: CommentProps) {
   );
   const updateCommentList = useCallback(
     async (post_id: number, parentId: number) => {
-      console.log(parentId,'11111')
       if (parentId === -1) {
         getCommentsByPostId(post_id).then((res) => {
           dispatch(changeCommentList(res.data));
