@@ -7,7 +7,7 @@ export type CommonHead = {
 
 const commonContent =
   "ElevenDing 前端技术博客, Next、Node、Next.js、NextJs、后端、自动部署、文件上传、服务端、面试经验、JavaScript、CSS、React、Vue";
-  
+
 export default function CommonHead({ content, title }: CommonHead) {
   return (
     <Head>
@@ -19,6 +19,12 @@ export default function CommonHead({ content, title }: CommonHead) {
         rel="icon"
         href="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/icon.jpeg"
       />
+      {/* google 广告验证 */}
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1163321291228195"
+        crossOrigin="anonymous"
+      ></script>
     </Head>
   );
 }
