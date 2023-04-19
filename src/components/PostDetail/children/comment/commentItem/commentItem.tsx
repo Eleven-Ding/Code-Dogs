@@ -39,6 +39,7 @@ export function CommentItem({
 
     // 如果是回复第一级的评论，那么 parentId 就是第一级的commentId
     // 如果回复是二级评论里的评论，那么 parentId 就是目标评论的 parentId
+    // 如果是提交子评论，那么不用打全量接口，如果是跟评论才打
     updateLoading(true);
     const parentId =
       currentReplyComment.parentId !== -1
@@ -49,7 +50,13 @@ export function CommentItem({
     updateLoading(false);
     setReplyContent("");
     updateCurrentReplyComment(null);
-  }, [currentReplyComment, replyContent, comment, submitComment]);
+  }, [
+    currentReplyComment,
+    comment,
+    submitComment,
+    replyContent,
+    updateCurrentReplyComment,
+  ]);
 
   const handleCommentTextAreaChange = useCallback(
     ({ target }: { target: HTMLTextAreaElement }) => {
@@ -110,7 +117,7 @@ export function CommentItem({
           <div className={styles["comment-item-input"]}>
             <TextArea
               placeholder={`回复: ${user.username}...`}
-              style={{ height: "80px",marginBottom:"10px" }}
+              style={{ height: "80px", marginBottom: "10px" }}
               onChange={handleCommentTextAreaChange}
             />
             <p className={styles["comment-item-submit-btn"]}>

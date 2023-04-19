@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import headerReducer from "./head";
+import CommentReducer from './comment'
 
 export const store = configureStore({
   reducer: {
     header: headerReducer,
+    comment: CommentReducer
   },
 });
 

@@ -83,3 +83,13 @@ export function getCommentsByPostId(postId: number) {
     })
     .then((res) => res.data);
 }
+// 根据父级评论 id 获取全部的子评论
+export function getCommentsByParentId(parentId: number) {
+  return request()
+    .get<CodeDogResponseType<CommontItemType[]>>("/comment/children_list", {
+      params: {
+        parentId,
+      },
+    })
+    .then((res) => res.data);
+}

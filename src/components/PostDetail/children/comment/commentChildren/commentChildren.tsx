@@ -3,8 +3,13 @@ import styles from "./commentChildren.module.scss";
 import { userInfo } from "os";
 import { CommentItem } from "../commentItem/commentItem";
 import { RootState } from "@/store/store";
-import { useState, useCallback } from "react";
+import { useState, useCallback, Dispatch } from "react";
 import { useSelector } from "react-redux";
+import { getCommentsByParentId } from "@/request/home";
+import { useDispatch } from "react-redux";
+import { mergeCommentListByChildrenId } from "@/store/comment";
+import { AnyAction, PayloadAction } from "@reduxjs/toolkit";
+
 export type CommentChildrenProps = {
   childrenComments: CommontItemType[];
   parentComment: CommontItemType;
@@ -12,22 +17,37 @@ export type CommentChildrenProps = {
   author: string;
 };
 
+// 根据 parentId 获取全部子评论
+export async function getChildrenCommentsByParentId(
+  parentId: number,
+  dispatch: Dispatch<AnyAction>
+) {
+  const result = await getCommentsByParentId(parentId);
+  dispatch(
+    mergeCommentListByChildrenId({
+      childrenId: parentId,
+      children: result.data,
+    })
+  );
+}
+
 export function CommentChildren({
   childrenComments,
   parentComment,
   submitComment,
   author,
 }: CommentChildrenProps) {
+  const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.header.userInfo);
   const [loadMoreLoading, setLoadMoreLoading] = useState(false);
   const [currentReplyComment, updateCurrentReplyComment] =
     useState<CommontItemType | null>(null);
 
-  const handleLoadMoreChildren = useCallback(() => {
-    setLoadMoreLoading(!loadMoreLoading);
-    // 根据 parentId 来获取全部的子评论，然后再 merge 到原来的评论列表上
-    const { commentId } = parentComment;
-  }, [loadMoreLoading, parentComment]);
+  const handleLoadMoreChildren = useCallback(async () => {
+    setLoadMoreLoading(true);
+    await getChildrenCommentsByParentId(parentComment.commentId, dispatch);
+    setLoadMoreLoading(false);
+  }, [dispatch, parentComment.commentId]);
   return (
     <div className={styles["children-comment-list"]}>
       {childrenComments!.map((child) => {
