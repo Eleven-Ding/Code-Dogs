@@ -31,6 +31,13 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
   }, []);
 
   useEffect(() => {
+    router.push({
+      pathname: "/",
+      query: {
+        page: page,
+        limit: pageSize,
+      },
+    });
     getPostsList({
       offset: (page - 1) * pageSize,
       limit: pageSize,
@@ -39,16 +46,7 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
         setTotal(count);
         setPageList(rows);
       })
-      .catch((error) => {})
-      .finally(() => {
-        router.push({
-          pathname: "/",
-          query: {
-            page: page,
-            limit: pageSize,
-          },
-        });
-      });
+      .catch((error) => {});
   }, [page, pageSize]);
   return (
     <>
