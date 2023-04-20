@@ -4,24 +4,24 @@ import { GetServerSideProps } from "next";
 import { PostDetailType, getPostsList } from "@/request/home";
 import { Pagination } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { backToTop } from "@/utils/backToTop";
 import CommonHead from "@/components/Head/head";
+import { useRouter } from "next/router";
 
 export type PostListResponse = {
   count: number;
   rows: PostDetailType[];
 };
 const limit = 8;
-let serverFetch = true;
 export default function Home(props: AppProps & { data: PostListResponse }) {
   const {
     data: { rows, count },
   } = props;
 
-  const [page, updatePage] = useState(1);
   const [pageList, setPageList] = useState(rows);
   const [total, setTotal] = useState(count);
   const [pageSize, setPageSize] = useState(limit);
+  const router = useRouter();
+  const [page, updatePage] = useState(Number(router.query.page) || 1);
 
   const handlePageSizeChange = useCallback((page: number) => {
     updatePage(page);
@@ -31,12 +31,6 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
   }, []);
 
   useEffect(() => {
-    // 回到顶部
-    if (serverFetch) {
-      serverFetch = false;
-      return;
-    }
-    // TODO: 开始 loading
     getPostsList({
       offset: (page - 1) * pageSize,
       limit: pageSize,
@@ -44,11 +38,16 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
       .then(({ data: [rows, count] }) => {
         setTotal(count);
         setPageList(rows);
-        backToTop();
       })
       .catch((error) => {})
       .finally(() => {
-        // TODO: 关闭 loading
+        router.push({
+          pathname: "/",
+          query: {
+            page: page,
+            limit: pageSize,
+          },
+        });
       });
   }, [page, pageSize]);
   return (

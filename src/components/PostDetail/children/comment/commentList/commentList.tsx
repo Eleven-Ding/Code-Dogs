@@ -1,5 +1,5 @@
 import { CommentItem } from "../commentItem/commentItem";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { CommontItemType } from "@/request/home";
 import styles from "./commentList.module.scss";
 import { useSelector } from "react-redux";
