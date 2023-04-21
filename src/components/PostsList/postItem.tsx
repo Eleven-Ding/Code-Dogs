@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { PostDetailType } from "@/request/home";
 import styles from "./postList.module.scss";
@@ -5,7 +6,7 @@ import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { PostItemBasicInfo } from "./children/basicInfo/basicInfo";
-import { Loading } from "@/common/Loading/Loading";
+import { Loading } from "@/common/Loading";
 
 export function PostItem(props: PostDetailType) {
   const {
@@ -47,18 +48,15 @@ export function PostItem(props: PostDetailType) {
       {post_url && (
         <div className={styles[`image-container`]}>
           <Loading show={!imageLoaded} />
-          <Image
+          <img
             src={post_url}
-            alt="ElevenDing 前端技术博客"
-            fill={true}
-            loading={"lazy"}
             style={{
-              objectFit: "cover",
               visibility: imageLoaded ? "initial" : "hidden",
             }}
-            quality={40}
             onLoad={handleImageLoaded}
-          ></Image>
+            alt={post_title + "EleveDing 前端技术博客"}
+          />
+   
         </div>
       )}
       <div className={styles["post-description"]}>{post_description}</div>
