@@ -13,7 +13,7 @@ export function PostItem(props: PostDetailType) {
     view_count,
     createdAt,
     post_id,
-    comment_count
+    comment_count,
   } = props;
 
   const router = useRouter();
@@ -23,7 +23,11 @@ export function PostItem(props: PostDetailType) {
   }, []);
 
   return (
-    <div className={styles["post-item-container"]} onClick={goToPostDetail}>
+    <div
+      className={styles["post-item-container"]}
+      style={{ padding: "10px 4px", marginTop: "10px" }}
+      onClick={goToPostDetail}
+    >
       {/* 标题 */}
       <h2>{post_title}</h2>
       {/* 基本信息 */}

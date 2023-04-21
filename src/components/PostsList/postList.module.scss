@@ -1,6 +1,6 @@
 .post-item-container {
+
   cursor: pointer;
-  padding: 10px 4px;
   width: 100%;
   overflow: hidden;
   .image-container {
@@ -27,7 +27,6 @@
     line-height: 23px;
   }
   transition: all 0.2s linear;
-  margin-top: 10px;
   &:hover {
     box-shadow: rgb(204, 204, 204) 0px 4px 10px;
     transform: translateY(-1px);
