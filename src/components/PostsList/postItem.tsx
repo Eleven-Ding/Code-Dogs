@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { PostDetailType } from "@/request/home";
 import styles from "./postList.module.scss";
 import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { PostItemBasicInfo } from "./children/basicInfo/basicInfo";
+import { Loading } from "@/common/Loading/Loading";
 
 export function PostItem(props: PostDetailType) {
   const {
@@ -16,10 +18,15 @@ export function PostItem(props: PostDetailType) {
     comment_count,
   } = props;
 
+  const [imageLoaded, updateImageLoaded] = useState(false);
   const router = useRouter();
 
   const goToPostDetail = useCallback(() => {
     router.push(`/detail/${post_id}`);
+  }, [post_id, router]);
+
+  const handleImageLoaded = useCallback(() => {
+    updateImageLoaded(true);
   }, []);
 
   return (
@@ -38,14 +45,19 @@ export function PostItem(props: PostDetailType) {
       ></PostItemBasicInfo>
       {/* 图片描述 */}
       {post_url && (
-        <div className={styles["image-container"]}>
+        <div className={styles[`image-container`]}>
+          <Loading show={!imageLoaded} />
           <Image
             src={post_url}
             alt="ElevenDing 前端技术博客"
             fill={true}
             loading={"lazy"}
-            style={{ objectFit: "cover" }}
-            quality={50}
+            style={{
+              objectFit: "cover",
+              visibility: imageLoaded ? "initial" : "hidden",
+            }}
+            quality={40}
+            onLoad={handleImageLoaded}
           ></Image>
         </div>
       )}

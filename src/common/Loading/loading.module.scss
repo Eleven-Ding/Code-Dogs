@@ -1,0 +1,19 @@
+.loading {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #1677ff;
+  border-top-color: transparent;
+  border-radius: 100%;
+  position: absolute;
+  animation: circle infinite 1s linear;
+}
+
+// 转转转动画
+@keyframes circle {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
