@@ -4,11 +4,16 @@ import { CommentList } from "./commentList/commentList";
 import { createComment } from "@/request/home";
 import { getCommentsByPostId } from "@/request/home";
 import { useCallback } from "react";
-import { changeCommentList, CommentContext } from "@/store/comment";
+import {
+  changeCommentList,
+  addParentComment,
+  addChildrenComment,
+} from "@/store/comment";
 import styles from "./comment.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { getChildrenCommentsByParentId } from "./commentChildren/commentChildren";
+import { assembleComment } from "@/utils";
 
 const { TextArea } = Input;
 
@@ -36,18 +41,6 @@ export function Comment({ post_id, user_id }: CommentProps) {
     },
     []
   );
-  const updateCommentList = useCallback(
-    async (post_id: number, parentId: number) => {
-      if (parentId === -1) {
-        getCommentsByPostId(post_id).then((res) => {
-          dispatch(changeCommentList(res.data));
-        });
-      } else {
-        await getChildrenCommentsByParentId(parentId, dispatch);
-      }
-    },
-    [dispatch]
-  );
 
   const submitComment = useCallback(
     async (content: string, replyId: number, parentId: number) => {
@@ -60,23 +53,28 @@ export function Comment({ post_id, user_id }: CommentProps) {
       }
       try {
         const res = await createComment(post_id, parentId, content, replyId);
-        const { message: resMessage } = res;
+        const { message: resMessage, data } = res;
+        // 根据新数据更新缓存
+        if (parentId === -1) {
+          dispatch(addParentComment(assembleComment(data)));
+        } else {
+          dispatch(addChildrenComment(assembleComment(data)));
+        }
         message.success(resMessage);
         setContent("");
-        updateCommentList(post_id, parentId);
       } catch (error) {
         message.error((error as any).response?.data.message);
       }
-      if (parentId === -1) {
-        setLoading(false);
-      }
+      setLoading(false);
     },
-    [post_id, updateCommentList]
+    [dispatch, post_id]
   );
 
   useEffect(() => {
-    updateCommentList(post_id, -1);
-  }, [dispatch, post_id, updateCommentList]);
+    getCommentsByPostId(post_id).then((res) => {
+      dispatch(changeCommentList(res.data));
+    });
+  }, [dispatch, post_id]);
 
   return (
     <div className={styles["comment-container"]}>

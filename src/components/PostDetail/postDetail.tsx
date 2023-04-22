@@ -3,9 +3,11 @@ import Image from "next/image";
 import { marked } from "marked";
 import { PostItemBasicInfo } from "../PostsList/children/basicInfo/basicInfo";
 import styles from "./postDetail.module.scss";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { PostFooter } from "./children/postFooter/postFooter";
+import { useDispatch } from "react-redux";
+import { resetCommentList } from "@/store/comment";
 
 export function PostDetail({
   post_title,
@@ -18,9 +20,16 @@ export function PostDetail({
   comment_count,
 }: PostDetailType) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const goBack = useCallback(() => {
     router.back();
   }, [router]);
+
+  useEffect(() => {
+    // 清空缓存的评论
+    dispatch(resetCommentList());
+  }, [dispatch]);
+
   return (
     <div className={styles["post-detail-container"]}>
       <div className={styles["post-detail-go-back"]} onClick={goBack}>

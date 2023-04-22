@@ -62,7 +62,7 @@ export function createComment(
   replyId: number
 ) {
   return request()
-    .post<CodeDogResponseType<null>>("/comment/create", {
+    .post<CodeDogResponseType<CommontItemType>>("/comment/create", {
       postId,
       parentId,
       content,

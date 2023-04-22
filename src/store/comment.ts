@@ -15,35 +15,11 @@ export const commentSlice = createSlice({
   name: "CommentContext",
   initialState,
   reducers: {
+    resetCommentList: (state) => {
+      state.commentList.length = 0;
+    },
     changeCommentList: (state, action: PayloadAction<CommontItemType[]>) => {
-      const commentList = [...state.commentList];
-      const commentListLength = commentList.length;
-      const inCommingListLength = action.payload.length;
-      // 初始状态，直接赋值
-      if (commentListLength === 0) {
-        state.commentList = action.payload;
-        return;
-      }
-      // 新增评论，这是排过顺序的，直接找到新增的那个就好
-      if (commentListLength < inCommingListLength) {
-        state.commentList = [
-          ...action.payload.slice(0, inCommingListLength - commentListLength),
-          ...commentList,
-        ];
-        return;
-      }
-      // 删除了评论，那么这里需要找到删除的那个评论
-      commentList.forEach((comment, cur) => {
-        const { commentId } = comment;
-        const index = action.payload.findIndex(
-          (item) => item.commentId === commentId
-        );
-        if (index === -1) {
-          // 删除没有找到的评论
-          commentList.splice(cur, 1);
-        }
-        state.commentList = commentList;
-      });
+      state.commentList = action.payload;
     },
     mergeCommentListByChildrenId: (
       state,
@@ -53,17 +29,33 @@ export const commentSlice = createSlice({
       }>
     ) => {
       // 合并 children
-      const commitList = [...state.commentList];
-      const childrenComment = commitList.find(
+      const childrenComment = state.commentList.find(
         (comment) => comment.commentId === action.payload.childrenId
       )!;
       childrenComment.children = action.payload.children;
-      state.commentList = commitList;
+    },
+
+    // 添加父级评论
+    addParentComment: (state, action: PayloadAction<CommontItemType>) => {
+      state.commentList.push(action.payload);
+    },
+
+    // 添加子评论
+    addChildrenComment: (state, action: PayloadAction<CommontItemType>) => {
+      const targetComment = state.commentList.find(
+        (comment) => comment.commentId === action.payload.parentId
+      );
+      targetComment?.children?.push(action.payload);
     },
   },
 });
 
-export const { changeCommentList, mergeCommentListByChildrenId } =
-  commentSlice.actions;
+export const {
+  changeCommentList,
+  mergeCommentListByChildrenId,
+  resetCommentList,
+  addParentComment,
+  addChildrenComment,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;

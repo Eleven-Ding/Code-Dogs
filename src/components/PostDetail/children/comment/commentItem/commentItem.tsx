@@ -1,8 +1,8 @@
 import { CommontItemType } from "@/request/home";
 import { User } from "@/types/auth";
+import React from "react";
 import { formatPostItemTime } from "@/utils/format";
 import styles from "./commentItem.module.scss";
-import Image from "next/image";
 import { Button, Input } from "antd";
 import { useCallback, useState } from "react";
 import { LazyImage } from "@/common/LazyImage/lazyImage";
@@ -19,7 +19,7 @@ export type CommontItemProps = {
 
 const { TextArea } = Input;
 
-export function CommentItem({
+function _CommentItem({
   comment,
   userInfo,
   author,
@@ -33,20 +33,16 @@ export function CommentItem({
   const { username, avatar_url } = user || ({} as User);
   const [replyContent, setReplyContent] = useState("");
 
-  const hanldeCommentItemSubmit = useCallback(() => {
+  const hanldeCommentItemSubmit = useCallback(async () => {
     if (!currentReplyComment) {
       return;
     }
-
-    // 如果是回复第一级的评论，那么 parentId 就是第一级的commentId
-    // 如果回复是二级评论里的评论，那么 parentId 就是目标评论的 parentId
-    // 如果是提交子评论，那么不用打全量接口，如果是跟评论才打
     updateLoading(true);
     const parentId =
       currentReplyComment.parentId !== -1
         ? comment.parentId
         : comment.commentId;
-    submitComment(replyContent, currentReplyComment.commentId, parentId);
+    await submitComment(replyContent, currentReplyComment.commentId, parentId);
 
     updateLoading(false);
     setReplyContent("");
@@ -142,3 +138,5 @@ export function CommentItem({
     </div>
   );
 }
+
+export const CommentItem = React.memo(_CommentItem);
