@@ -3,10 +3,11 @@ import { useState } from "react";
 import { PostDetailType } from "@/request/home";
 import styles from "./postList.module.scss";
 import { useCallback } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { PostItemBasicInfo } from "./children/basicInfo/basicInfo";
-import { Loading } from "@/common/Loading";
+import { LazyImage } from "@/common/LazyImage/lazyImage";
+import { getDeQualifiedImageUrl } from "@/utils";
+
 
 export function PostItem(props: PostDetailType) {
   const {
@@ -19,16 +20,11 @@ export function PostItem(props: PostDetailType) {
     comment_count,
   } = props;
 
-  const [imageLoaded, updateImageLoaded] = useState(false);
   const router = useRouter();
 
   const goToPostDetail = useCallback(() => {
     router.push(`/detail/${post_id}`);
   }, [post_id, router]);
-
-  const handleImageLoaded = useCallback(() => {
-    updateImageLoaded(true);
-  }, []);
 
   return (
     <div
@@ -44,19 +40,17 @@ export function PostItem(props: PostDetailType) {
         view_count={view_count}
         comment_count={comment_count}
       ></PostItemBasicInfo>
-      {/* 图片描述 */}
+      {/* 图片描述 ，懒加载*/}
       {post_url && (
         <div className={styles[`image-container`]}>
-          <Loading show={!imageLoaded} />
-          <img
-            src={post_url}
-            style={{
-              visibility: imageLoaded ? "initial" : "hidden",
-            }}
-            onLoad={handleImageLoaded}
+          {/* <Loading show={!imageLoaded} /> */}
+          <LazyImage
+            src={getDeQualifiedImageUrl(post_url, {
+              quality: 40,
+            })}
             alt={post_title + "EleveDing 前端技术博客"}
+            lazy={true}
           />
-   
         </div>
       )}
       <div className={styles["post-description"]}>{post_description}</div>

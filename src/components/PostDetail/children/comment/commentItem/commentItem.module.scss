@@ -4,6 +4,12 @@
   display: flex;
   align-items: flex-start;
   margin: 10px 0;
+  .comment-item-image-container{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    position: relative;
+  }
   img {
     border-radius: 50%;
   }

@@ -7,7 +7,24 @@
   position: absolute;
   animation: circle infinite 1s linear;
 }
+.medium {
+  width: 30px;
+  height: 30px;
+  left: calc(50% - 15px);
+}
 
+.small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1677ff;
+  left: calc(50% - 10px);
+  top: calc(50% - 10px);
+}
+.large {
+  width: 40px;
+  height: 40px;
+  left: calc(50% - 20px);
+}
 // 转转转动画
 @keyframes circle {
   0% {

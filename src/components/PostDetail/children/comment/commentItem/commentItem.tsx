@@ -5,6 +5,7 @@ import styles from "./commentItem.module.scss";
 import Image from "next/image";
 import { Button, Input } from "antd";
 import { useCallback, useState } from "react";
+import { LazyImage } from "@/common/LazyImage/lazyImage";
 
 export type CommontItemProps = {
   comment: CommontItemType;
@@ -66,13 +67,18 @@ export function CommentItem({
   );
   return (
     <div className={styles["comment-item-container"]}>
-      <Image
-        width={30}
-        height={30}
-        src={avatar_url}
-        alt="ElevenDing 前端技术博客"
-        loading={"lazy"}
-      ></Image>
+      <div className={styles["comment-item-image-container"]}>
+        <LazyImage
+          src={avatar_url}
+          alt="ElevenDing 前端技术博客"
+          lazy={true}
+          style={{
+            width: "30px",
+            heigth: "30px",
+          }}
+          loadingSize="small"
+        />
+      </div>
       <div className={styles["comment-right-info"]}>
         <div className={styles["comment-top-info"]}>
           <span className={styles["username"]}>

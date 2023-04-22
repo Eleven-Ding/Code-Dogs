@@ -36,6 +36,7 @@ export function CommentList({
               updateCurrentReplyComment={updateCurrentReplyComment}
               submitComment={submitComment}
             />
+
             {item.children?.length !== 0 && (
               <>
                 <CommentChildren

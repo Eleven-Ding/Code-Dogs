@@ -4,7 +4,7 @@
   overflow: hidden;
   .image-container {
     overflow: hidden;
-    min-height: 300px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +36,7 @@
 @media screen and (max-width: 800px) {
   .post-item-container {
     .image-container {
-      min-height: 200px;
+      height: 200px;
     }
   }
 }

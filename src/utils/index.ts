@@ -1,5 +1,4 @@
 import { User } from "@/types/auth";
-import { CommontItemType } from "@/request/home";
 
 export function getUserInfoFromLocalStorage(): User {
   try {
@@ -7,4 +6,13 @@ export function getUserInfoFromLocalStorage(): User {
   } catch (error) {
     return {} as User;
   }
+}
+
+export function getDeQualifiedImageUrl(
+  url: string,
+  params: {
+    quality: number;
+  }
+): string {
+  return url + `?imageView2/q/${params.quality}`;
 }
