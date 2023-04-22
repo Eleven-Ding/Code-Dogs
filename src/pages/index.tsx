@@ -6,6 +6,7 @@ import { Pagination } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import CommonHead from "@/components/Head/head";
 import { useRouter } from "next/router";
+import { startGlobalLoading, closeGlobalLoading } from "@/utils/createLoading";
 
 export type PostListResponse = {
   count: number;
@@ -31,13 +32,10 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
   }, []);
 
   useEffect(() => {
-    router.push({
-      pathname: "/",
-      query: {
-        page: page,
-        limit: pageSize,
-      },
-    });
+    // back to top
+    window.scrollTo(0, 0);
+    // start loading
+    startGlobalLoading();
     getPostsList({
       offset: (page - 1) * pageSize,
       limit: pageSize,
@@ -45,6 +43,8 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
       .then(({ data: [rows, count] }) => {
         setTotal(count);
         setPageList(rows);
+        closeGlobalLoading();
+        // back to top
       })
       .catch((error) => {});
   }, [page, pageSize]);
