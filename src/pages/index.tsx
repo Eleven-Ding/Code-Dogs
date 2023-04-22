@@ -3,7 +3,7 @@ import { AppProps } from "antd";
 import { GetServerSideProps } from "next";
 import { PostDetailType, getPostsList } from "@/request/home";
 import { Pagination } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import CommonHead from "@/components/Head/head";
 import { useRouter } from "next/router";
 import { startGlobalLoading, closeGlobalLoading } from "@/utils/createLoading";
@@ -12,6 +12,8 @@ export type PostListResponse = {
   count: number;
   rows: PostDetailType[];
 };
+let firstFetch = false;
+
 const limit = 8;
 export default function Home(props: AppProps & { data: PostListResponse }) {
   const {
@@ -19,6 +21,7 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
   } = props;
 
   const [pageList, setPageList] = useState(rows);
+  const isFirstFetch = useRef(false);
   const [total, setTotal] = useState(count);
   const [pageSize, setPageSize] = useState(limit);
   const router = useRouter();
@@ -32,9 +35,14 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
   }, []);
 
   useEffect(() => {
+    // 第一次从服务端获取数据，就不再进行获取了
+    if (!isFirstFetch.current) {
+      isFirstFetch.current = true;
+      return;
+    }
     // back to top
     window.scrollTo(0, 0);
-    // start loading
+    // start loading if not first page
     startGlobalLoading();
     getPostsList({
       offset: (page - 1) * pageSize,
@@ -47,6 +55,9 @@ export default function Home(props: AppProps & { data: PostListResponse }) {
         // back to top
       })
       .catch((error) => {});
+    return () => {
+      firstFetch = false;
+    };
   }, [page, pageSize]);
   return (
     <>
