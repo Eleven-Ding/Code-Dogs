@@ -133,6 +133,7 @@ function _CommentItem({
             </span>
           )}
           <Modal
+            width={400}
             title="删除评论"
             open={open}
             onOk={handleDeleteComment}
