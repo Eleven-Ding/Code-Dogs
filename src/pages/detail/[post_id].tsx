@@ -4,9 +4,15 @@ import { PostDetailType } from "@/request/home";
 import { PostDetail } from "@/components/PostDetail/postDetail";
 import { Comment } from "@/components/PostDetail/children/comment/comment";
 import CommonHead from "@/components/Head/head";
+import { updatePostViewCount } from "@/request/post";
+import { useEffect } from "react";
 
 export default function Detail(props: PostDetailType) {
   const { post_id, user_id, post_description, post_title } = props;
+  useEffect(() => {
+    updatePostViewCount(post_id);
+  }, [post_id]);
+  
   return (
     <>
       <CommonHead title={post_title} content={post_description} />
