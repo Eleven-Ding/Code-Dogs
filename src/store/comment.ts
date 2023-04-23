@@ -47,6 +47,31 @@ export const commentSlice = createSlice({
       );
       targetComment?.children?.push(action.payload);
     },
+
+    // 根据 commentId 删除评论
+    deleteCommentList: (state, action: PayloadAction<CommontItemType>) => {
+      const { commentId, parentId } = action.payload;
+      // 如果是一级评论
+      if (parentId === -1) {
+        const comment = state.commentList.findIndex(
+          (comment) => comment.commentId === commentId
+        );
+        state.commentList.splice(comment, 1);
+      } else {
+        // 找到父级评论
+        const parentComment = state.commentList.find(
+          (comment) => comment.commentId === parentId
+        );
+        console.log(parentComment?.commentId);
+
+        // 找到子评论 
+        const childrenCommentIndex = parentComment?.children?.findIndex(
+          (comment) => comment.commentId === commentId
+        );
+        // 删除
+        parentComment?.children?.splice(childrenCommentIndex!, 1);
+      }
+    },
   },
 });
 
@@ -56,6 +81,7 @@ export const {
   resetCommentList,
   addParentComment,
   addChildrenComment,
+  deleteCommentList,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;
