@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { PostFooter } from "./children/postFooter/postFooter";
 import { useDispatch } from "react-redux";
 import { resetCommentList } from "@/store/comment";
+import { LazyImage } from "@/common/LazyImage/lazyImage";
 
 export function PostDetail({
   post_title,
@@ -45,14 +46,11 @@ export function PostDetail({
         ></PostItemBasicInfo>
         {post_url && (
           <div className={styles["post-detail-basic-info-img"]}>
-            <Image
+            <LazyImage
               src={post_url}
-              alt="ElevenDingImage"
-              fill={true}
-              loading={"lazy"}
-              style={{ objectFit: "cover" }}
-              quality={50}
-            ></Image>
+              alt={post_title}
+              lazy={true}
+            ></LazyImage>
           </div>
         )}
         <span className={styles["post-detail-description"]}>
