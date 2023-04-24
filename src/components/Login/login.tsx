@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import styles from "./login.module.scss";
-import { LoginTypeItem, LoginType } from "@/types/header";
+import { LoginType } from "@/types/header";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { User } from "@/types/auth";
 import type { MenuProps } from "antd";
@@ -9,8 +8,9 @@ import { openLoginWindow } from "@/utils/openLoginWindow";
 import { login } from "@/request/auth";
 import { closeGlobalLoading, startGlobalLoading } from "@/utils/createLoading";
 import { LoginTypeList } from "@/const";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeUserInfo } from "@/store/head";
+import { LazyImage } from "@/common/LazyImage/lazyImage";
 
 export const messageLoadingKey = "OAuth_Login";
 
@@ -124,7 +124,12 @@ export default function Login() {
       >
         {userInfo ? (
           <Space className={styles["login-content"]}>
-            <img src={userInfo.avatar_url} alt="ElevenDing 前端技术博客" />
+            <LazyImage
+              src={userInfo.avatar_url}
+              alt="ElevenDing 前端技术博客"
+              lazy={true}
+              loadingSize="small"
+            />
           </Space>
         ) : (
           <Space className={styles["login-content"]}>

@@ -1,10 +1,13 @@
 .login-container {
   cursor: pointer;
+  margin-left: 15px;
+  min-width: 41px;
+  text-align: center;
   .login-content {
     display: flex;
     font-size: 13px;
+    position: relative;
     color: rgb(180, 185, 190);
-    margin-left: 15px;
     &:hover {
       color: #fff;
     }

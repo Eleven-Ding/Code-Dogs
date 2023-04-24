@@ -3,7 +3,7 @@ import { User } from "@/types/auth";
 import React from "react";
 import { formatPostItemTime } from "@/utils/format";
 import styles from "./commentItem.module.scss";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import { useCallback, useState } from "react";
 import { LazyImage } from "@/common/LazyImage/lazyImage";
 import { deleteComment } from "@/request/post";
@@ -76,6 +76,7 @@ function _CommentItem({
 
     Promise.resolve().then(() => {
       setOpen(false);
+      message.success("评论已删除");
     });
   }, [comment, dispatch]);
   return (
