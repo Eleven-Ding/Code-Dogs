@@ -3,7 +3,8 @@ import { changeShowLoginPanel, changeUserInfo } from "@/store/head";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { LazyImage } from "@/common/LazyImage/lazyImage";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
+import { Button, Popover, message } from "antd";
 export function LoginButton() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,17 +24,34 @@ export function LoginButton() {
   const showLoginPanel = () => {
     dispatch(changeShowLoginPanel(true));
   };
+  const handleLoginOut = useCallback(() => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
+    dispatch(changeUserInfo(null));
+  }, [dispatch]);
+
+  const renderLoginOut = useMemo(() => {
+    return (
+      <Button onClick={handleLoginOut} danger>
+        退出登录
+      </Button>
+    );
+  }, [handleLoginOut]);
   return (
     <div className={styles["login-button-container"]}>
       {userInfo ? (
-        <LazyImage
-          src={userInfo!.avatar_url}
-          alt="ElevenDing 前端技术博客"
-          lazy={true}
-          loadingSize="small"
-        ></LazyImage>
+        <Popover content={renderLoginOut} trigger="click">
+          <LazyImage
+            src={userInfo!.avatar_url}
+            alt="ElevenDing 前端技术博客"
+            lazy={true}
+            loadingSize="small"
+          ></LazyImage>
+        </Popover>
       ) : (
-        <span className={styles['login']} onClick={showLoginPanel}>登录</span>
+        <span className={styles["login"]} onClick={showLoginPanel}>
+          登录
+        </span>
       )}
     </div>
   );

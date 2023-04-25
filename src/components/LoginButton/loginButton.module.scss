@@ -8,6 +8,14 @@
   text-align: center;
   margin-right: 3px;
   cursor: pointer;
+  .login-out {
+    cursor: pointer;
+    display: inline-block;
+    &:hover {
+      background-color: #ccc;
+      color: red;
+    }
+  }
 
   img {
     width: 30px;

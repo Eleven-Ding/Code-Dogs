@@ -21,7 +21,7 @@ export const counterSlice = createSlice({
     changeCurrentTab: (state, action: PayloadAction<string>) => {
       state.currentTab = action.payload;
     },
-    changeUserInfo: (state, action: PayloadAction<User>) => {
+    changeUserInfo: (state, action: PayloadAction<User | null>) => {
       state.userInfo = action.payload;
     },
     changeShowLoginPanel: (state, action: PayloadAction<boolean>) => {
