@@ -1,16 +1,14 @@
 import styles from "./login.module.scss";
-import { LoginType } from "@/types/header";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { User } from "@/types/auth";
-import type { MenuProps } from "antd";
-import { Dropdown, Space, message } from "antd";
+import { message } from "antd";
 import { openLoginWindow } from "@/utils/openLoginWindow";
 import { login } from "@/request/auth";
 import { closeGlobalLoading, startGlobalLoading } from "@/utils/createLoading";
 import { LoginTypeList } from "@/const";
 import { useDispatch } from "react-redux";
 import { changeUserInfo } from "@/store/head";
-import { LazyImage } from "@/common/LazyImage/lazyImage";
+import { changeShowLoginPanel } from "@/store/head";
 
 export const messageLoadingKey = "OAuth_Login";
 
@@ -19,23 +17,10 @@ export default function Login() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const dispatch = useDispatch();
 
-  const handleLoginMenuItemClick = useCallback(
-    ({ key }: { key: string }) => {
-      if (key === LoginType.LogOut) {
-        setUserInfo(null);
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("token");
-        messageApi.success({
-          content: `成功退出登录`,
-          duration: 2,
-        });
-        return;
-      }
-      const { link } = LoginTypeList.find((item) => item.type === key)!;
-      openLoginWindow(link, "loginWindow");
-    },
-    [messageApi]
-  );
+  const handleLoginMenuItemClick = useCallback(({ key }: { key: string }) => {
+    const { link } = LoginTypeList.find((item) => item.type === key)!;
+    openLoginWindow(link, "loginWindow");
+  }, []);
 
   useEffect(() => {
     async function handlePostMessage({ data }: any) {
@@ -43,6 +28,7 @@ export default function Login() {
       if (!type || !payload) {
         return;
       }
+      dispatch(changeShowLoginPanel(false));
       try {
         messageApi.info({
           content: "登陆中，请稍后",
@@ -93,39 +79,35 @@ export default function Login() {
     }
   }, [userInfo, dispatch]);
 
-  const items: MenuProps["items"] = useMemo(() => {
-    let menuItems = [];
-    if (!userInfo) {
-      menuItems = LoginTypeList.map(({ type, text, icon }) => {
-        return {
-          key: type,
-          label: <span>{text}</span>,
-          icon: <span className={icon} style={{ fontSize: "20px" }}></span>,
-        };
-      });
-    } else {
-      menuItems = [
-        {
-          key: LoginType.LogOut,
-          label: <span>{userInfo.username} 退出登录</span>,
-        },
-      ];
-    }
-    return menuItems;
-  }, [userInfo]);
-
-
+  const handleClose = () => {
+    dispatch(changeShowLoginPanel(false));
+  };
   return (
     <div className={styles["login-container"]}>
       {ContextHolder}
-      {LoginTypeList.map((item) => {
-        return (
-          <div key={item.type} className={styles["login-opt-item"]}>
-            {/* <span className={styles["login-item-text"]}>{item.text}</span> */}
-            <span className={item.icon}></span>
-          </div>
-        );
-      })}
+      <p className={styles["login-title"]}>
+        <span>欢迎使用第三方登录</span>
+        <span
+          onClick={handleClose}
+          className="iconfont icon-delete-filling"
+        ></span>
+      </p>
+      <div className={styles["login-item-list"]}>
+        {LoginTypeList.map((item) => {
+          return (
+            <div
+              key={item.type}
+              className={styles["login-opt-item"]}
+              onClick={() => {
+                handleLoginMenuItemClick({ key: item.type });
+              }}
+            >
+              <span className={item.icon} style={{ color: item.color }}></span>
+              <p>{item.text}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

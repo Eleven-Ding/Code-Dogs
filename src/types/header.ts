@@ -8,4 +8,5 @@ export type LoginTypeItem = {
   text: string;
   link: string;
   icon: string;
+  color:string;
 };

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3975730 */
-  src: url('//at.alicdn.com/t/c/font_3975730_23vn0iogxyn.woff2?t=1681634141391') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3975730_23vn0iogxyn.woff?t=1681634141391') format('woff'),
-       url('//at.alicdn.com/t/c/font_3975730_23vn0iogxyn.ttf?t=1681634141391') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3975730_vxqmhob81go.woff2?t=1682437654864') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3975730_vxqmhob81go.woff?t=1682437654864') format('woff'),
+       url('//at.alicdn.com/t/c/font_3975730_vxqmhob81go.ttf?t=1682437654864') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-delete-filling:before {
+  content: "\e68a";
 }
 
 .icon-dianzan:before {
@@ -83,7 +87,6 @@
 
 .icon-drop-down:before {
   content: "\e63a";
-  margin-left: -9px;
 }
 
 .icon-github:before {
