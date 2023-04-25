@@ -114,29 +114,18 @@ export default function Login() {
     return menuItems;
   }, [userInfo]);
 
+
   return (
     <div className={styles["login-container"]}>
       {ContextHolder}
-      <Dropdown
-        menu={{ items, onClick: handleLoginMenuItemClick }}
-        arrow
-        placement="bottomLeft"
-      >
-        {userInfo ? (
-          <Space className={styles["login-content"]}>
-            <LazyImage
-              src={userInfo.avatar_url}
-              alt="ElevenDing 前端技术博客"
-              lazy={true}
-              loadingSize="small"
-            />
-          </Space>
-        ) : (
-          <Space className={styles["login-content"]}>
-            登录<i className="iconfont icon-drop-down"></i>
-          </Space>
-        )}
-      </Dropdown>
+      {LoginTypeList.map((item) => {
+        return (
+          <div key={item.type} className={styles["login-opt-item"]}>
+            {/* <span className={styles["login-item-text"]}>{item.text}</span> */}
+            <span className={item.icon}></span>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -1,0 +1,27 @@
+.login-button-container {
+  color: rgb(180, 185, 190);
+  font-size: 13px;
+  margin-left: 15px;
+  min-width: 34px;
+  position: relative;
+
+  text-align: center;
+  margin-right: 3px;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .login {
+    display: inline-block;
+    border: 1px dashed #777777;
+    padding: 3px;
+  }
+  &:hover {
+    color: rgba(255, 255, 255, 0.782);
+    border-color: rgba(255, 255, 255, 0.782);
+  }
+}

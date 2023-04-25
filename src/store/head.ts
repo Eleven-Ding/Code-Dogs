@@ -5,11 +5,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface HeaderContext {
   currentTab: string;
   userInfo: User | null;
+  showLoginPanel: boolean;
 }
 
 const initialState: HeaderContext = {
   currentTab: "/",
   userInfo: null,
+  showLoginPanel: false,
 };
 
 export const counterSlice = createSlice({
@@ -22,9 +24,13 @@ export const counterSlice = createSlice({
     changeUserInfo: (state, action: PayloadAction<User>) => {
       state.userInfo = action.payload;
     },
+    changeShowLoginPanel: (state, action: PayloadAction<boolean>) => {
+      state.showLoginPanel = action.payload;
+    },
   },
 });
 
-export const { changeCurrentTab, changeUserInfo } = counterSlice.actions;
+export const { changeCurrentTab, changeUserInfo, changeShowLoginPanel } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

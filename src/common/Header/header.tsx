@@ -3,6 +3,7 @@ import { routes } from "@/config/router";
 import Menu from "@/components/RouteMenu/menu";
 import Title from "@/components/Title/title";
 import Login from "@/components/Login/login";
+import { LoginButton } from "@/components/LoginButton/loginButton";
 
 export default function Header() {
   return (
@@ -13,7 +14,7 @@ export default function Header() {
         </div>
         <div className={styles["header-content-right"]}>
           <Menu routes={routes} />
-          <Login></Login>
+          <LoginButton/>
         </div>
       </div>
     </div>
