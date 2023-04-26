@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { Button, Popover, message } from "antd";
 export function LoginButton() {
   const dispatch = useDispatch();
+  const [messageApi, ContextHolder] = message.useMessage();
   useEffect(() => {
     try {
       const userInfo = localStorage.getItem("userInfo");
@@ -28,7 +29,8 @@ export function LoginButton() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
     dispatch(changeUserInfo(null));
-  }, [dispatch]);
+    messageApi.success("已退出登录");
+  }, [dispatch, messageApi]);
 
   const renderLoginOut = useMemo(() => {
     return (
@@ -39,6 +41,7 @@ export function LoginButton() {
   }, [handleLoginOut]);
   return (
     <div className={styles["login-button-container"]}>
+      {ContextHolder}
       {userInfo ? (
         <Popover content={renderLoginOut} trigger="click">
           <LazyImage
