@@ -28,7 +28,6 @@ export default function Login() {
       if (!type || !payload) {
         return;
       }
-      dispatch(changeShowLoginPanel(false));
       try {
         messageApi.info({
           content: "登陆中，请稍后",
@@ -56,6 +55,7 @@ export default function Login() {
         });
       } finally {
         closeGlobalLoading();
+        dispatch(changeShowLoginPanel(false));
       }
     }
     window.addEventListener("message", handlePostMessage, false);
