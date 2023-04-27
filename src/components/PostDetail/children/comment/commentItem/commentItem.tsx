@@ -97,7 +97,7 @@ function _CommentItem({
         <div className={styles["comment-top-info"]}>
           <span className={styles["username"]}>
             {username}
-            {user.user_id === author && (
+            {String(user.user_id) === author && (
               <span className={styles["post-author"]}>作者</span>
             )}
           </span>
