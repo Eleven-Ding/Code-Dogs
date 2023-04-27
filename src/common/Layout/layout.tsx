@@ -4,16 +4,11 @@ import React, { PropsWithChildren, Suspense, useEffect } from "react";
 import styles from "./layout.module.scss";
 import RightPanel from "../RightPanel/rightPanel";
 import { initBackGroudColorTick } from "../../utils/backgroud";
-import { shallowEqual, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import Login from "@/components/Login/login";
 
-const Login = React.lazy(() => import("@/components/Login/login"));
 
 export default function Layout({ children }: PropsWithChildren) {
-  const showLoginPanel = useSelector(
-    (state: RootState) => state.header.showLoginPanel,
-    shallowEqual
-  );
+
 
   useEffect(() => {
     initBackGroudColorTick();
@@ -27,11 +22,7 @@ export default function Layout({ children }: PropsWithChildren) {
           <RightPanel />
         </div>
       </div>
-      {showLoginPanel && (
-        <Suspense fallback={<></>}>
-          <Login />
-        </Suspense>
-      )}
+      <Login />
       <Footer />
     </>
   );

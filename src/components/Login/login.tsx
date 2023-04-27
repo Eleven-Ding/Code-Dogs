@@ -6,15 +6,20 @@ import { openLoginWindow } from "@/utils/openLoginWindow";
 import { login } from "@/request/auth";
 import { closeGlobalLoading, startGlobalLoading } from "@/utils/createLoading";
 import { LoginTypeList } from "@/const";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeUserInfo } from "@/store/head";
 import { changeShowLoginPanel } from "@/store/head";
+import { RootState } from "@/store/store";
 
 export const messageLoadingKey = "OAuth_Login";
 
 export default function Login() {
   const [messageApi, ContextHolder] = message.useMessage();
   const [userInfo, setUserInfo] = useState<User | null>(null);
+  const showLoginPanel = useSelector(
+    (state: RootState) => state.header.showLoginPanel,
+    shallowEqual
+  );
   const dispatch = useDispatch();
 
   const handleLoginMenuItemClick = useCallback(({ key }: { key: string }) => {
@@ -83,7 +88,12 @@ export default function Login() {
     dispatch(changeShowLoginPanel(false));
   };
   return (
-    <div className={styles["login-container"]}>
+    <div
+      className={[
+        styles["login-container"],
+        showLoginPanel ? styles["show-login"] : styles["hidden-login"],
+      ].join(" ")}
+    >
       {ContextHolder}
       <p className={styles["login-title"]}>
         <span>欢迎使用第三方登录</span>

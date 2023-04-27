@@ -1,12 +1,19 @@
+.show-login {
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+.hidden-login {
+  transform: translate(-50%, -50%) scale(0) !important;
+}
 .login-container {
+  transition: all 0.2s linear;
   position: fixed;
   left: 50%;
   top: 40%;
-  transform: translate(-50%, -50%);
-  width: 350px;
+  transform: translate(-50%, -50%) scale(0);
   box-shadow: 0 0 5px #c2c2c2;
   border-radius: 5px;
   height: 180px;
+  width: 350px;
   background-color: white;
   padding: 10px;
 
