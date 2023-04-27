@@ -1,9 +1,14 @@
 import axios, {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
+  AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
 import { baseURL } from "@/const";
+import { ErrorCode } from "./errrorCode";
+import { store } from "@/store/store";
+import { changeShowLoginPanel } from "@/store/head";
 
 export const REQUEST_TIME_OUT = 10 * 1000;
 
@@ -27,6 +32,18 @@ proxyRequest.interceptors.request.use(
       config.headers!.Authorization = `Bearer ${localStorage.getItem("token")}`;
     }
     return config;
+  }
+);
+proxyRequest.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  (error: AxiosError) => {
+    // 如果为登录，进行弹窗
+    if (error.response?.status === ErrorCode.Unauthorized) {
+      store.dispatch(changeShowLoginPanel(true));
+    }
+    throw error;
   }
 );
 
